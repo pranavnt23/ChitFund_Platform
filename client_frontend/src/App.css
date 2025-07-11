@@ -1,0 +1,149 @@
+/* Reset default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply styles to the entire document */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #DDD0C8; /* Beige background color */
+  font-family: Arial, sans-serif; /* Use Arial as the font */
+}
+
+/* Header section */
+.fundverse-header {
+  position: fixed; /* Keeps the header fixed at the top */
+  top: 0;
+  left: 0; /* Ensures header starts from left edge */
+  right: 0; /* Ensures header extends to right edge */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background-color: #DDD0C8; /* Match the background color */
+  z-index: 1000; /* Ensures the header is always on top */
+  height: 80px; /* Fixed height for the header */
+  width: 100%;
+}
+
+/* Add padding to the body to prevent content from hiding behind the fixed header */
+body {
+  padding-top: 80px; /* Matches header height */
+}
+
+/* Logo section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-section img {
+  width: 80px;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  transform: scale(0.8);
+  opacity: 0.5;
+  animation: scaleUp 1.5s forwards ease-in-out;
+}
+
+.fundverse-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 35px;
+  color: #333;
+  margin-left: 10px;
+}
+
+/* Main navigation styling */
+.main-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.main-nav a, .auth-section a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 8px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for navigation links */
+.main-nav a:hover, .auth-section a:hover {
+  background-color: #4A4A4A;
+  color: white;
+}
+
+/* Active state for links */
+.main-nav a:active, .auth-section a:active {
+  background-color: #DCA1A1;
+}
+
+/* Authentication section for login/register */
+.auth-section {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.auth-section a {
+  margin-left: 10px;
+}
+
+/* Style for active link */
+.active-link {
+  color: black; /* Black color for active link */
+  font-weight: bold;
+}
+
+/* Sections to give proper spacing and size */
+section {
+  padding: 40px 20px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Animation for logo */
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .fundverse-header {
+    flex-wrap: wrap;
+    padding: 5px 10px;
+    height: auto; /* Allow header to expand on mobile */
+    min-height: 80px;
+  }
+  
+  body {
+    padding-top: 120px; /* Increased padding for mobile to account for wrapped nav */
+  }
+  
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .fundverse-title {
+    font-size: 28px;
+  }
+}

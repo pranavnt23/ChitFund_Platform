@@ -1,0 +1,86 @@
+.table-container {
+    width: 80%;
+    height: auto; /* Adjust height to auto so it reduces */
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(to right, #3b3b3b, #222222);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 50px; /* Add margin to create gap between table-container and footer */
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 15px; /* Reduced margin */
+    font-size: 22px; /* Slightly smaller font size */
+    color: #fff;
+}
+
+.scheme-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.scheme-table th, .scheme-table td {
+    padding: 8px; /* Reduced padding to minimize row height */
+    border: 1px solid #fff;
+    text-align: left;
+}
+
+.scheme-table th {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+.scheme-table tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scheme-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
+
+/* Button styles */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px; /* Reduced margin */
+}
+
+.register-button {
+    background-color: white;
+    color: #222222;
+    padding: 10px 20px; /* Reduced padding */
+    border: 2px solid #222222;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #222222;
+    color: white;
+    border-color: white;
+    transition: all 0.3s ease;
+}
+.footer {
+    margin-top: 40px; /* Adjust this value to create the desired gap */
+    padding: 20px; /* Optional padding for the footer */
+    text-align: center; /* Center the footer text */
+    
+}
+

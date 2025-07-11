@@ -1,0 +1,192 @@
+/* Add this to the top of your CSS file to import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lora:wght@400;700&display=swap');
+
+/* Main App Container */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+}
+
+/* Login Container */
+.login-container {
+  background-color: #DDD0C8;
+  width: 800px;
+  height: 100%;
+  min-height: calc(100vh - 100px);
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin-bottom: 30px;
+}
+
+/* Login Card */
+.login-card {
+  display: flex;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Left side - Login Form */
+.login-content {
+  width: 60%;
+  padding: 40px;
+  height: 150%;
+}
+
+/* Login Heading */
+.login-content h2 {
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Create Account Text */
+.create-account {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.create-account a {
+  color: #7e3af2;
+  text-decoration: none;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+input {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 0 auto;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #7e3af2;
+  outline: none;
+}
+
+/* Button Styles */
+.login-button {
+  background-color: #404040;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-button:hover {
+  background-color: black;
+  transform: scale(1.05);
+}
+
+/* Right side - Welcome Back */
+.welcome-back {
+  width: 40%;
+  height: 100%;
+  background-image: url('C:\Users\prana\react\ChitFund_Platform\client_frontend\src\LoginComponent\back6.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Welcome Content */
+.welcome-content {
+  color: white;
+  padding: 40px;
+  z-index: 1;
+}
+
+/* Welcome Heading */
+.welcome-content h2 {
+  font-family: 'Lora', serif;
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 15px;
+  color: white;
+}
+
+/* Welcome Description */
+.welcome-content p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* Footer Styles */
+footer {
+  margin-top: auto;
+  background-color: #1a1a1a;
+  color: white;
+  width: 100%;
+}
+
+/* Create Account Section */
+.create-account-section {
+  text-align: left;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.create-link {
+  color: #6366f1;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.create-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column;
+  }
+  
+  .login-content, .welcome-back {
+    width: 100%;
+  }
+  
+  .login-container {
+    width: 100%;
+    padding: 10px;
+  }
+}

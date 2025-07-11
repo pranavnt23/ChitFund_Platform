@@ -1,0 +1,86 @@
+.schemes-container {
+    background-color: #36454F;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 1200px;
+    margin: 50px auto 50px auto; /* Adjusted margin-bottom to 50px to create space */
+}
+
+.schemes-grid {
+    display: grid; /* Use grid to set 3 columns */
+    grid-template-columns: repeat(3, 1fr); /* 3 schemes per row */
+    gap: 2rem; /* Space between cards */
+}
+
+.scheme-card {
+    background-color: #fff; /* Card background */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.scheme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.icon-container {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+}
+
+.scheme-icon {
+    width: 40px;
+    height: 40px;
+    color: #4a5568;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.card-description {
+    color: #718096;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.register-button {
+    background-color: #36454F; /* Button color */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: black;
+}
+
+@media (max-width: 1024px) {
+    .schemes-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 schemes per row for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .schemes-grid {
+        grid-template-columns: 1fr; /* 1 scheme per row for small screens */
+    }
+}

@@ -1,0 +1,124 @@
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns items to the start (top) */
+    padding: 20px;
+}
+
+.dialog-content {
+    background-color: white;
+    padding: 12px; /* Adjusted padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 800px; /* Keep this wide */
+    max-height: 80vh; /* Set max height to allow scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    position: relative;
+    margin-top: 70px; /* Add margin to move the dialog box down */
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: center; /* Center the header content */
+    align-items: center;
+    margin-bottom: 8px; /* Reduced margin */
+    padding-bottom: 8px; /* Further reduced padding */
+    border-bottom: 1px solid #eee;
+    flex-direction: column; /* Stack items vertically */
+}
+
+.dialog-title {
+    font-size: 1.25rem; /* Reduced font size */
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.close-x {
+    position: absolute;
+    top: 10px; /* Adjusted position */
+    right: 10px; /* Adjusted position */
+    width: 28px; /* Slightly smaller */
+    height: 28px; /* Slightly smaller */
+    background-color: #f3f4f6;
+    color: #666;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px; /* Reduced font size */
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-x:hover {
+    background-color: #e5e7eb;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: -10px !important; /* Keep reduced margin */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0px !important; /* No margin for labels */
+    font-weight: 500;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem; /* Reduced font size */
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); /* Reduced focus shadow */
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.button-group {
+    margin-top: 12px; /* Adjusted space above buttons */
+    display: flex; /* Change to flex for better centering */
+    justify-content: center; /* Center buttons horizontally */
+    gap: 8px; /* Keep gap for spacing between buttons */
+}
+
+.submit-button,
+.close-button {
+    padding: 10px 16px; /* Reduced padding */
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 30%;
+    margin-top: -15px;
+    transition: background-color 0.2s ease;
+}
+
+.submit-button {
+    background-color: #222222;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: black;
+}

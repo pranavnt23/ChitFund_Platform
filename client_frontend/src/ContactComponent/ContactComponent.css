@@ -1,0 +1,101 @@
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    margin: 100px auto; /* Increased the top margin to move it down further */
+    padding: 20px;
+    top: 70px;
+    background-color: #f9f4ef;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 70vh; /* Set a fixed height for the container */
+} 
+
+.contact-form {
+    width: 50%;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 90%; /* Make sure it doesn't exceed the container height */
+    overflow: hidden; /* Hide overflow */
+}
+
+.form-scroll-container {
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+    flex-grow: 1; /* Allow this container to grow and fill available space */
+    padding-right: 10px; /* Add some padding for the scrollbar */
+}
+
+.contact-form h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.submit-btn:hover {
+    background-color: #555;
+}
+
+.contact-image {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .contact-form,
+    .contact-image {
+        width: 100%;
+    }
+    
+    .contact-image {
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,63 @@
+.auction-history-container {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f2f2f2;
+    color: #333;
+    width: 100%;
+    max-width: 1070px;
+    margin: auto;
+}
+.auction-history-container h2{
+    text-align: center;
+}
+.monthly-history {
+    margin-bottom: 30px;
+}
+
+.auction-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.auction-history-table th,
+.auction-history-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.auction-history-table th {
+    background-color: #2C3539;
+    color: #FFFFFF;
+}
+
+.auction-history-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.auction-history-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.monthly-summary {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+}
+
+.payment-button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.payment-button:hover {
+    background-color: #218838;
+}
