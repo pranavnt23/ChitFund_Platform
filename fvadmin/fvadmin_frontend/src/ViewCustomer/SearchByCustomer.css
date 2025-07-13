@@ -1,0 +1,106 @@
+/* Styles specific to SearchByCustomer component */
+.search-by-customer-container {
+    padding: 20px;
+    max-width: 600px; /* Ensure the container is not too wide */
+    margin: 0 auto; /* Center the container */
+}
+
+.customer-details {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: box-shadow 0.3s ease;
+}
+
+.customer-info {
+    margin-top: 10px;
+}
+
+.customer-row {
+    display: flex; /* Use flexbox to align label and value */
+    justify-content: flex-start; /* Align items to the start */
+    margin-bottom: 8px; /* Space between rows */
+}
+
+.customer-label {
+    font-weight: bold; /* Bold for the labels */
+    margin-right: 10px; /* Space between label and value */
+}
+
+.customer-value {
+    /* Additional styling for customer values can go here */
+}
+
+.schemes-registered {
+    margin-top: 20px; /* Space above schemes section */
+}
+
+.scheme-details-container {
+    margin-top: 10px;
+}
+
+/* Scrollable container for scheme details */
+.scrollable-scheme-details {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.scheme-detail {
+    display: inline-block; /* Allow items to sit next to each other */
+    color: black;
+    margin-right: 20px; /* Space between scheme details */
+    border: 1px solid #ddd; /* Optional border for each scheme detail */
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners for scheme details */
+}
+
+h5 {
+    text-align: center; /* Ensure the heading is centered */
+    font-size: 1.5rem; /* Adjust font size if needed */
+}
+
+/* Search button styles */
+.search-by-customer-container button {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for a better touch area */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.search-by-customer-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+.search-by-customer-container button:active {
+    transform: scale(0.95); /* Shrink button on click */
+}
+
+.user-details-box {
+  background: #f4f8ff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 18px 0;
+  box-shadow: 0 2px 10px rgba(0,123,255,0.07);
+  max-width: 420px;
+  font-size: 1rem;
+}
+
+.user-field {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.user-field span {
+  font-weight: 600;
+  color: #007bff;
+  min-width: 120px;
+  display: inline-block;
+}

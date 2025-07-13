@@ -1,0 +1,104 @@
+.add-scheme-container {
+    position: relative; /* Set relative positioning for absolute positioning of the dialog */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background color for the form */
+    border-radius: 8px; /* Rounded corners for the form */
+    max-width: 500px; /* Maximum width for the form */
+    margin: auto; /* Center the form horizontally */
+  }
+  
+  .add-scheme-form {
+    display: flex; /* Use flexbox for form layout */
+    flex-direction: column; /* Stack form elements vertically */
+  }
+  
+  .add-scheme-form label {
+    margin-bottom: 5px; /* Space below labels */
+    font-weight: bold; /* Bold text for labels */
+  }
+  
+  .add-scheme-form input,
+  .add-scheme-form textarea,
+  .add-scheme-form select {
+    margin-bottom: 15px; /* Space below input fields */
+    padding: 8px; /* Inner padding for input fields */
+    border: 1px solid #ccc; /* Light gray border for input fields */
+    border-radius: 4px; /* Rounded corners for input fields */
+    width: 100%; /* Full width for input fields */
+  }
+  
+  .add-scheme-form button {
+    background-color: #4caf50; /* Green background for buttons */
+    color: white; /* White text color */
+    border: none; /* No border for buttons */
+    padding: 10px; /* Inner padding for buttons */
+    border-radius: 4px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .add-scheme-form button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .login-dialog-overlay {
+    position: fixed; /* Fixed positioning to cover the viewport */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    right: 0; /* Align to right */
+    bottom: 0; /* Align to bottom */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Use flexbox to center the modal */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.login-dialog {
+    background-color: white; /* White background for the dialog */
+    padding: 20px; /* Inner padding for the dialog */
+    border-radius: 8px; /* Rounded corners for the dialog */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 300px; /* Fixed width for the dialog */
+    max-width: 100%; /* Ensure responsiveness */
+}
+
+/* Additional styles can remain unchanged */
+
+  
+  .login-dialog h3 {
+    margin-top: 0; /* Remove default margin from heading */
+  }
+  
+  .login-dialog label {
+    display: block; /* Make labels block level for better spacing */
+    margin-top: 10px; /* Space above the label */
+  }
+  
+  .login-dialog input {
+    width: 100%; /* Full width for inputs */
+    padding: 8px; /* Inner padding for inputs */
+    margin-top: 5px; /* Space above the input */
+    border: 1px solid #ccc; /* Light gray border for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+  }
+  
+  .login-dialog button {
+    margin-top: 15px; /* Space above the button */
+    background-color: #4caf50; /* Green background for button */
+    color: white; /* White text color */
+    width: 100%;
+    border: none; /* No border for button */
+    padding: 10px; /* Inner padding for button */
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .login-dialog button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  .error-message {
+    color: red; /* Red text for error messages */
+    margin-bottom: 15px; /* Space below the error message */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+  
