@@ -117,7 +117,7 @@ function App() {
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/api/schemes/:username" element={<LoginSchemeComponent />} />
           <Route path="/register" element={<RegisterComponent />} />
-          <Route path="/more/:id" element={<MorePage />} /> {/* Add this route */}
+          <Route path="/more/:id" element={<MorePage />} /> 
         </Routes>
 
         <Footer />

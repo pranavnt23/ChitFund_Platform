@@ -1,110 +1,117 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import './MorePage.css';
 import RegisterDialog from './RegisterScheme';
-import Auction from './Auction'; // Import Auction component
-import AuctionHistory from './AuctionHistory'; // Import AuctionHistory component
 
-const MorePage = () => {
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [isAuctionVisible, setAuctionVisible] = useState(false); // State for auction visibility
-  const [isAuctionHistoryVisible, setAuctionHistoryVisible] = useState(false); // State for auction history visibility
-  const [isLoading, setLoading] = useState(false); // State for loading
+const MorePageComponent = () => {
+  const { id, username } = useParams(); // Extract id and username from URL params
+  const location = useLocation(); // Use location to get passed state
+  const registeredSchemes = location.state?.registeredSchemes || []; // Default to an empty array if not provided
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const [schemeData, setSchemeData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+useEffect(() => {
+  const fetchSchemeDetails = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/schemes/${id}`);
+      const data = await response.json();
+      setSchemeData(data);
+    } catch (error) {
+      console.error('Error fetching scheme details:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchSchemeDetails();
+}, [id]); 
 
   const handleRegisterClick = () => {
-    setDialogOpen(true); // Open the register dialog
+    setIsDialogOpen(true);
   };
 
   const closeDialog = () => {
-    setDialogOpen(false); // Close the dialog
-    setLoading(true); // Start loading
-    // Simulate an API call with a timeout
-    setTimeout(() => {
-      setAuctionVisible(true); // Show the Auction component
-      setAuctionHistoryVisible(true); // Show the AuctionHistory component
-      setLoading(false); // End loading
-    }, 1000); // Adjust time as necessary
+    setIsDialogOpen(false);
   };
 
-  const schemeData = {
-    name: "Gold Savings Scheme",
-    description: "Members contribute a fixed amount monthly to accumulate gold or cash equivalent at the end of the chit period.",
-    target_audience: "Individuals seeking stable, long-term savings in gold.",
-    investment_plan: {
-      monthly_contribution: { min: 10000, max: 50000 },
-      chit_period: { min: 12, max: 36 },
-      total_fund_value: [
-        { duration: 12, min_value: 120000, max_value: 600000 },
-        { duration: 36, min_value: 360000, max_value: 1800000 }
-      ]
-    },
-    benefits: [
-      "Redeemable in gold bars or coins, or in cash based on market rates.",
-      "Option for early withdrawal or purchase from partnered jewelers at discounted rates."
-    ]
+  const handleViewHistoryClick = () => {
+    navigate('/auction', { state: { schemeId: id, username } }); // Navigate to Auction with state
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!schemeData) {
+    return <div>No scheme data available</div>;
+  }
+
+  // Check if the scheme is already registered by the user
+  const isRegistered = registeredSchemes.some(scheme => scheme.scheme_id === id);
 
   return (
-    <div>
-      <div className="table-container">
-        <h1>FUNDVERSE SCHEMES</h1>
-        <table className="scheme-table">
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Name</td><td>{schemeData.name}</td></tr>
-            <tr><td>Description</td><td>{schemeData.description}</td></tr>
-            <tr><td>Target Audience</td><td>{schemeData.target_audience}</td></tr>
-            <tr>
-              <td>Monthly Contribution</td>
-              <td>₹{schemeData.investment_plan.monthly_contribution.min} - ₹{schemeData.investment_plan.monthly_contribution.max}</td>
-            </tr>
-            <tr>
-              <td>Chit Period</td>
-              <td>{schemeData.investment_plan.chit_period.min} - {schemeData.investment_plan.chit_period.max} months</td>
-            </tr>
-            <tr>
-              <td>Total Fund Value (12 months)</td>
-              <td>₹{schemeData.investment_plan.total_fund_value[0].min_value} - ₹{schemeData.investment_plan.total_fund_value[0].max_value}</td>
-            </tr>
-            <tr>
-              <td>Total Fund Value (36 months)</td>
-              <td>₹{schemeData.investment_plan.total_fund_value[1].min_value} - ₹{schemeData.investment_plan.total_fund_value[1].max_value}</td>
-            </tr>
-            <tr>
-              <td>Benefits</td>
-              <td>
-                <ul>
-                  {schemeData.benefits.map((benefit, index) => (
-                    <li key={index}>{benefit}</li>
-                  ))}
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="table-container">
+      <h1>{schemeData.name}</h1>
+      <table className="scheme-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Name</td><td>{schemeData.name}</td></tr>
+          <tr><td>Description</td><td>{schemeData.description}</td></tr>
+          <tr><td>Target Audience</td><td>{schemeData.target_audience}</td></tr>
+          <tr>
+          <td>Monthly Contribution</td>
+          <td>₹{schemeData.investment_plan?.monthly_contribution}</td>
+          </tr>
+          <tr>
+          <td>Chit Period</td>
+          <td>{schemeData.investment_plan?.chit_period} months</td>
+          </tr>
+          <tr>
+          <td>Total Fund Value</td>
+          <td>₹{schemeData.investment_plan?.total_fund_value?.[0]?.value}</td>
+          </tr>
+          <tr>
+            <td>Benefits</td>
+            <td>
+              <ul>
+                {schemeData.benefits?.map((benefit, index) => (
+                  <li key={index}>{benefit}</li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Show Register button only if not already registered */}
+      {!isRegistered ? (
         <div className="button-container">
-          <button className="register-button" onClick={handleRegisterClick}>Register</button>
+          <button className="register-button" onClick={handleRegisterClick}>Register for Scheme</button>
         </div>
-
-        {/* Render the RegisterDialog if it's open */}
-        {isDialogOpen && <RegisterDialog onClose={closeDialog} />}
-      </div>
-
-      {/* Render both Auction and AuctionHistory components or loading message */}
-      {isLoading ? (
-        <p>Loading auction and auction history...</p>
       ) : (
-        <>
-          {isAuctionVisible && <Auction />}
-          {isAuctionHistoryVisible && <AuctionHistory />}
-        </>
+        // Show View Auction History button if the scheme is registered
+        <div className="button-container">
+          <button className="view-history-button" onClick={handleViewHistoryClick}>View Auction History</button>
+        </div>
+      )}
+
+      {isDialogOpen && (
+        <RegisterDialog 
+          onClose={closeDialog}
+          schemeId={id}
+          username={username}
+        />
       )}
     </div>
   );
 };
 
-export default MorePage;
+export default MorePageComponent;

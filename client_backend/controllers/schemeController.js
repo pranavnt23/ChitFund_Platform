@@ -1,7 +1,9 @@
+const mongoose = require('mongoose');  // ✅ Import mongoose
 const User = require('../models/User');
 const Scheme = require('../models/Scheme');
 const Bid = require('../models/Bid');
 
+// ✅ Fetch all schemes
 exports.getAllSchemes = async (req, res) => {
   try {
     const schemes = await Scheme.find();
@@ -12,19 +14,23 @@ exports.getAllSchemes = async (req, res) => {
   }
 };
 
-// controllers/schemeController.js
+// ✅ Fetch scheme by ID
 exports.getSchemeById = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("Fetching scheme with ID:", id);
 
-    // Validate ID
     if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ObjectId format for:", id);
       return res.status(400).json({ error: 'Invalid scheme ID format' });
     }
 
     const scheme = await Scheme.findById(id);
+    console.log("Fetched Scheme:", scheme);
 
-    if (!scheme) return res.status(404).json({ message: 'Scheme not found' });
+    if (!scheme) {
+      return res.status(404).json({ message: 'Scheme not found' });
+    }
 
     res.status(200).json(scheme);
   } catch (error) {
@@ -33,6 +39,7 @@ exports.getSchemeById = async (req, res) => {
   }
 };
 
+// ✅ Register user for a scheme
 exports.registerForScheme = async (req, res) => {
   const { username, schemeId } = req.body;
 
@@ -67,6 +74,7 @@ exports.registerForScheme = async (req, res) => {
   }
 };
 
+// ✅ Place a bid for a scheme
 exports.placeBid = async (req, res) => {
   const { userId, schemeId, bidAmount } = req.body;
 
@@ -93,7 +101,7 @@ exports.placeBid = async (req, res) => {
 
     res.json({ message: 'Bid placed successfully', bidAmount });
   } catch (error) {
-    console.error(error);
+    console.error('Error placing bid:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

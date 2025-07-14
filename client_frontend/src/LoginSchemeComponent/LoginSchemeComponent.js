@@ -55,18 +55,16 @@ const LoginSchemeComponent = () => {
     fetchSchemes();
   }, [username]);
 
-const handleMoreClick = (id) => {
-  const schemeId = typeof id === 'object' && id._id ? id._id.toString() : id.toString();
+const handleMoreClick = (scheme) => {
+  const schemeId = scheme._id;
   navigate(`/more/${schemeId}`, {
     state: {
       registeredSchemes: schemes.registeredSchemes,
       username: username
     }
   });
-};
-
-
-  // New function to handle auction history navigation
+};  
+  // New function to handle auction history navigation  
   const handleViewHistoryClick = (id) => {
     navigate(`/auction`, { state: { schemeId: id, username } }); // Navigate to auction page
   };
