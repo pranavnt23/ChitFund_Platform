@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate, Link, useLocation 
 import './App.css';
 import logo from './images/FundLogo-removebg-preview.png'; // Import your logo
 import LoginComponent from './LoginComponent/LoginComponent';
+import LoginSchemeComponent from './LoginSchemeComponent/LoginSchemeComponent';
 import RegisterComponent from './RegisterComponent/RegisterComponent';
 import AboutComponent from './AboutComponent/AboutComponent';
 import ContactComponent from './ContactComponent/ContactComponent';
@@ -114,6 +115,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/schemes" element={<SchemesComponent />} />
           <Route path="/login" element={<LoginComponent />} />
+          <Route path="/api/schemes/:username" element={<LoginSchemeComponent />} />
           <Route path="/register" element={<RegisterComponent />} />
           <Route path="/more/:id" element={<MorePage />} /> {/* Add this route */}
         </Routes>

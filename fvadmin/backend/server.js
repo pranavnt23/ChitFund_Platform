@@ -95,7 +95,6 @@ app.get('/api/schemes/search', async (req, res) => {
   if (schemename) query.name = { $regex: schemename, $options: 'i' };
   try {
     const schemes = await Scheme.find(query);
-
     // Fetch all users once
     const allUsers = await User.find({}).select('username fname lname email phone_number schemes_registered');
 
