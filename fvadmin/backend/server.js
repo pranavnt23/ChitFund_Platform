@@ -6,6 +6,9 @@ const cors = require('cors');
 const schemeRoutes = require('./app/routes/schemeRoutes');
 const customerRoutes = require('./app/routes/customerRoutes');
 
+// Import Middleware
+const adminAuth = require('./app/middleware/adminAuth');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -26,9 +29,9 @@ mongoose.connect(MONGO_URI, {
   process.exit(1);
 });
 
-// Routes
-app.use('/api/schemes', schemeRoutes);
-app.use('/api/customers', customerRoutes);
+// Apply adminAuth before these routes
+app.use('/api/schemes', adminAuth, schemeRoutes);
+app.use('/api/customers', adminAuth, customerRoutes);
 
 // Start Server
 app.listen(PORT, () => {

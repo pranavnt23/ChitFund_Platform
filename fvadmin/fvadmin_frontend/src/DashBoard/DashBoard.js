@@ -3,7 +3,7 @@ import './DashBoard.css';
 import AddScheme from '../AddScheme/AddScheme';
 import DeleteScheme from '../DeleteScheme/DeleteScheme';
 import ViewCustomer from '../ViewCustomer/ViewCustomer';
-import ModifyScheme from '../ModifyScheme/ModifyScheme'; // <-- Add this line
+import ModifyScheme from '../ModifyScheme/ModifyScheme'; 
 
 const Dashboard = ({ username, onLogout }) => {
   const [currentPage, setCurrentPage] = useState('view-customer');

@@ -1,4 +1,4 @@
-const User = require('./models/User');
+const User = require('../models/User');
 
 exports.searchCustomers = async (req, res) => {
   const { phone, username, aadhar } = req.query;

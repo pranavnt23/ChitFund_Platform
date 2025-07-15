@@ -19,10 +19,11 @@ const Login = ({ onLogin }) => {
     // Check credentials with your specified username and password
     if (username === 'Mohanapriya' && password === 'priya@aviation') {
       console.log('Login successful'); // Debug log
-      onLogin(username); // Call the onLogin prop function
+      onLogin(username); 
     } else {
       setError('Invalid username or password');
     }
+
   };
 
   return (
