@@ -1,4 +1,5 @@
 const Scheme = require('../models/Scheme');
+const User = require('../models/User');
 
 exports.getAllSchemes = async (req, res) => {
   try {
@@ -6,13 +7,12 @@ exports.getAllSchemes = async (req, res) => {
     res.json(schemes);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch schemes' });
-  } 
+  }
 };
 
 exports.getSchemeById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const scheme = await Scheme.findById(id);
+    const scheme = await Scheme.findById(req.params.id);
     if (!scheme) return res.status(404).json({ error: 'Scheme not found' });
     res.json(scheme);
   } catch (err) {
@@ -46,5 +46,43 @@ exports.deleteScheme = async (req, res) => {
     res.status(204).send();
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete scheme' });
+  }
+};
+
+exports.searchSchemes = async (req, res) => {
+  const { schemeid, schemename } = req.query;
+  let query = {};
+
+  if (schemeid && mongoose.Types.ObjectId.isValid(schemeid)) {
+    query._id = schemeid;
+  } else if (schemeid) {
+    return res.status(400).json({ error: 'Invalid schemeid' });
+  }
+
+  if (schemename) query.name = { $regex: schemename, $options: 'i' };
+
+  try {
+    const schemes = await Scheme.find(query);
+    const allUsers = await User.find().select('username fname lname email phone_number schemes_registered');
+
+    const results = schemes.map(scheme => {
+      const schemeIdStr = scheme._id.toString();
+      const registered_users = allUsers.filter(user =>
+        (user.schemes_registered || []).some(reg => reg.scheme_id?.toString() === schemeIdStr)
+      ).map(user => ({
+        _id: user._id,
+        username: user.username,
+        fname: user.fname,
+        lname: user.lname,
+        email: user.email,
+        phone_number: user.phone_number
+      }));
+
+      return { ...scheme.toObject(), registered_users };
+    });
+
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch schemes' });
   }
 };

@@ -41,30 +41,71 @@ const AddScheme = () => {
     setShowLogin(true); 
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const correctUsername = "admin";
     const correctPassword = "password";
 
-    if (adminCredentials.username === correctUsername && adminCredentials.password === correctPassword) {
-      console.log('Scheme Details Submitted:', schemeDetails);
-      setShowLogin(false); 
-      setSchemeDetails({
-        schemeName: '',
-        description: '',
-        targetAudience: '',
-        monthlyContribution: '',
-        chitPeriod: '',
-        totalSlots: '',
-        startDate: '',
-        startTime: '',
-        totalFundAmount: '' 
-      });
-      setAdminCredentials({ username: '', password: '' });
+    if (
+      adminCredentials.username === correctUsername &&
+      adminCredentials.password === correctPassword
+    ) {
+      try {
+        // Prepare the payload
+        const payload = {
+          name: schemeDetails.schemeName,
+          description: schemeDetails.description,
+          target_audience: schemeDetails.targetAudience,
+          investment_plan: {
+            monthly_contribution: Number(schemeDetails.monthlyContribution),
+            chit_period: Number(schemeDetails.chitPeriod),
+            total_fund_value: [{
+              duration: Number(schemeDetails.chitPeriod),
+              value: Number(schemeDetails.totalFundAmount)
+            }]
+          },
+          number_of_slots: Number(schemeDetails.totalSlots),
+          start_date: schemeDetails.startDate,
+          start_time: schemeDetails.startTime
+        };
+
+        // API call to add the scheme
+        const response = await fetch('http://localhost:5000/api/schemes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          alert('Scheme added successfully!');
+          setSchemeDetails({
+            schemeName: '',
+            description: '',
+            targetAudience: '',
+            monthlyContribution: '',
+            chitPeriod: '',
+            totalSlots: '',
+            startDate: '',
+            startTime: '',
+            totalFundAmount: ''
+          });
+          setShowLogin(false);
+          setAdminCredentials({ username: '', password: '' });
+        } else {
+          const errorData = await response.json();
+          alert(`Failed to add scheme: ${errorData.error}`);
+        }
+      } catch (err) {
+        console.error('Error adding scheme:', err);
+        alert('An error occurred while adding the scheme');
+      }
     } else {
       alert('Invalid username or password!');
     }
-  };
+};
+
 
   return (
     <div className="add-scheme-container">

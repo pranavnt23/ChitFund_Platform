@@ -1,48 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, Routes, Route } from 'react-router-dom';
 import './DashBoard.css';
+
 import AddScheme from '../AddScheme/AddScheme';
 import DeleteScheme from '../DeleteScheme/DeleteScheme';
 import ViewCustomer from '../ViewCustomer/ViewCustomer';
-import ModifyScheme from '../ModifyScheme/ModifyScheme'; 
+import ModifyScheme from '../ModifyScheme/ModifyScheme';
+import SubGroup from '../SubGroup/SubGroup';
 
 const Dashboard = ({ username, onLogout }) => {
-  const [currentPage, setCurrentPage] = useState('view-customer');
-
-  const renderContent = () => {
-    switch (currentPage) {
-      case 'view-customer':
-        return <ViewCustomer />;
-      case 'add-scheme':
-        return <AddScheme />;
-      case 'delete-scheme':
-        return <DeleteScheme />;
-      case 'modify-scheme':
-        return <ModifyScheme />;
-      case 'auction':
-        return <Auction />;
-      case 'auction-history':
-        return <AuctionHistory />;
-      default:
-        return <ViewCustomer />;
-    }
-  };
-
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-content">
-          {/* Logo and Text */}
           <div className="logo-container">
             <img src="/images/FundLogo-removebg-preview.png" alt="FundVerse Logo" className="fundverse-logo" />
             <h1>FUNDVERSE</h1>
           </div>
 
-          {/* User Info */}
           <div className="user-controls">
             <span>Welcome, {username}!</span>
-            <button onClick={onLogout} className="logout-button">
-              Logout
-            </button>
+            <button onClick={onLogout} className="logout-button">Logout</button>
           </div>
         </div>
       </header>
@@ -50,77 +28,43 @@ const Dashboard = ({ username, onLogout }) => {
       <div className="dashboard-content">
         <nav className="sidebar">
           <ul>
-            <li>
-              <button
-                onClick={() => setCurrentPage('view-customer')}
-                className={currentPage === 'view-customer' ? 'active' : ''}
-              >
-                View Customer
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentPage('add-scheme')}
-                className={currentPage === 'add-scheme' ? 'active' : ''}
-              >
-                Add Scheme
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentPage('delete-scheme')}
-                className={currentPage === 'delete-scheme' ? 'active' : ''}
-              >
-                Delete Scheme
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentPage('modify-scheme')}
-                className={currentPage === 'modify-scheme' ? 'active' : ''}
-              >
-                Modify Scheme
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentPage('auction')}
-                className={currentPage === 'auction' ? 'active' : ''}
-              >
-                Auction
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentPage('auction-history')}
-                className={currentPage === 'auction-history' ? 'active' : ''}
-              >
-                Auction History
-              </button>
-            </li>
+            <li><Link to="view-customer"><button>View Customer</button></Link></li>
+            <li><Link to="add-scheme"><button>Add Scheme</button></Link></li>
+            <li><Link to="delete-scheme"><button>Delete Scheme</button></Link></li>
+            <li><Link to="modify-scheme"><button>Modify Scheme</button></Link></li>
+            <li><Link to="subgroup"><button>SubGroup</button></Link></li>
+            <li><Link to="auction"><button>Auction</button></Link></li>
+            <li><Link to="auction-history"><button>Auction History</button></Link></li>
           </ul>
         </nav>
 
         <main className="main-content">
-          {renderContent()}
+          <Routes>
+            <Route path="view-customer" element={<ViewCustomer />} />
+            <Route path="add-scheme" element={<AddScheme />} />
+            <Route path="delete-scheme" element={<DeleteScheme />} />
+            <Route path="modify-scheme" element={<ModifyScheme />} />
+            <Route path="subgroup/*" element={<SubGroup />} />
+            <Route path="auction" element={<Auction />} />
+            <Route path="auction-history" element={<AuctionHistory />} />
+          </Routes>
         </main>
       </div>
     </div>
   );
 };
 
-// Dummy Components for Other Pages
 const Auction = () => (
   <div className="content-container">
     <h2>Auction</h2>
-    <div>Auction Content</div>
+    <p>Auction content goes here.</p>
   </div>
 );
 
 const AuctionHistory = () => (
   <div className="content-container">
     <h2>Auction History</h2>
-    <div>Auction History Content</div>
+    <p>Auction history content goes here.</p>
   </div>
 );
 

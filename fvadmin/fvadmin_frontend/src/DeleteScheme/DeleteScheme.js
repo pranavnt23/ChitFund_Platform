@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './DeleteScheme.css'; // Ensure this path is correct
+import './DeleteScheme.css';
 
 const DeleteScheme = () => {
   const [schemes, setSchemes] = useState([]);
@@ -7,18 +7,18 @@ const DeleteScheme = () => {
   const [adminCredentials, setAdminCredentials] = useState({ username: '', password: '' });
   const [schemeToDelete, setSchemeToDelete] = useState(null);
 
-  useEffect(() => {
-    // Fetch all schemes from the server
-    const fetchSchemes = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/schemes');
-        const data = await response.json();
-        setSchemes(data);
-      } catch (error) {
-        console.error('Error fetching schemes:', error);
-      }
-    };
+  const fetchSchemes = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/schemes');
+      const data = await response.json();
+      console.log('Fetched schemes:', data);
+      setSchemes(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error fetching schemes:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchSchemes();
   }, []);
 
@@ -34,59 +34,75 @@ const DeleteScheme = () => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const correctUsername = "Mohanapriya";
-    const correctPassword = "priya@aviation";
+    const correctUsername = "admin";
+    const correctPassword = "password";
+
     if (
       adminCredentials.username === correctUsername &&
       adminCredentials.password === correctPassword
     ) {
-      // Proceed to delete
       try {
-        await fetch(`http://localhost:5000/api/schemes/${schemeToDelete}`, {
+        const response = await fetch(`http://localhost:5000/api/schemes/${schemeToDelete}`, {
           method: 'DELETE',
         });
-        setSchemes(schemes.filter((scheme) => scheme._id !== schemeToDelete));
-        setShowLogin(false);
-        setSchemeToDelete(null);
-        setAdminCredentials({ username: '', password: '' });
+
+        if (response.ok) {
+          alert('Scheme deleted successfully');
+          fetchSchemes(); // Refresh the schemes list
+        } else {
+          alert('Failed to delete scheme');
+        }
+        resetLoginState();
       } catch (error) {
+        console.error('Error deleting scheme:', error);
         alert('Error deleting scheme');
+        resetLoginState();
       }
     } else {
       alert('Invalid admin credentials');
     }
   };
 
+  const resetLoginState = () => {
+    setShowLogin(false);
+    setSchemeToDelete(null);
+    setAdminCredentials({ username: '', password: '' });
+  };
+
   return (
     <div className="schemes-container">
-      {schemes.map((scheme) => (
-        <div key={scheme._id} className="scheme-card">
-          <h3>{scheme.name}</h3>
-          <p>{scheme.description}</p>
-          <h4>Target Audience: {scheme.target_audience}</h4>
-          <h4>Investment Plan:</h4>
-          <ul>
-            <li>Monthly Contribution: ₹{scheme.investment_plan.monthly_contribution}</li>
-            <li>Chit Period: {scheme.investment_plan.chit_period} months</li>
-            <li>Total Fund Value: {scheme.investment_plan.total_fund_value.map(v => `₹${v.value} for ${v.duration} months`).join(', ')}</li>
-          </ul>
-          <h4>Benefits:</h4>
-          <ul>
-            {scheme.benefits.map((benefit, i) => (
-              <li key={i}>{benefit}</li>
-            ))}
-          </ul>
-          <button
-            onClick={() => {
-              setSchemeToDelete(scheme._id);
-              setShowLogin(true);
-            }}
-            className="delete-btn"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+      {schemes.length > 0 ? (
+        schemes.map((scheme) => (
+          <div key={scheme._id} className="scheme-card">
+            <h3>{scheme.name}</h3>
+            <p>{scheme.description}</p>
+            <h4>Target Audience: {scheme.target_audience}</h4>
+            <h4>Investment Plan:</h4>
+            <ul>
+              <li>Monthly Contribution: ₹{scheme.investment_plan?.monthly_contribution}</li>
+              <li>Chit Period: {scheme.investment_plan?.chit_period} months</li>
+              <li>
+                Total Fund Value:{" "}
+                {scheme.investment_plan?.total_fund_value
+                  ?.map((v) => `₹${v.value} for ${v.duration} months`)
+                  .join(', ')}
+              </li>
+            </ul>
+            <h4>Benefits:</h4>
+            <ul>
+              {scheme.benefits?.map((benefit, i) => (
+                <li key={i}>{benefit}</li>
+              ))}
+            </ul>
+            <button onClick={() => handleDelete(scheme._id)} className="delete-btn">
+              Delete
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>No schemes available</p>
+      )}
+
       {showLogin && (
         <div className="login-dialog">
           <form onSubmit={handleLoginSubmit}>
@@ -109,7 +125,9 @@ const DeleteScheme = () => {
             />
             <div className="button-row">
               <button type="submit">Confirm Delete</button>
-              <button type="button" onClick={() => setShowLogin(false)}>Cancel</button>
+              <button type="button" onClick={resetLoginState}>
+                Cancel
+              </button>
             </div>
           </form>
         </div>

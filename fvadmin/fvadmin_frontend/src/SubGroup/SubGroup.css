@@ -1,0 +1,22 @@
+.subgroup-container {
+  text-align: center;
+}
+
+.subgroup-actions button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.subgroup-actions button:hover {
+  background-color: #0056b3;
+}
+
+.subgroup-content {
+  margin-top: 20px;
+}

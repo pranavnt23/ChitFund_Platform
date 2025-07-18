@@ -3,6 +3,7 @@ const router = express.Router();
 const schemeController = require('../controllers/schemeController');
 
 router.get('/', schemeController.getAllSchemes);
+router.get('/search', schemeController.searchSchemes);
 router.get('/:id', schemeController.getSchemeById);
 router.post('/', schemeController.createScheme);
 router.put('/:id', schemeController.updateScheme);
