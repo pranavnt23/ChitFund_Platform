@@ -74,7 +74,6 @@ const SearchByScheme = ({ searchOption, placeholder }) => {
                 {scheme.benefits?.map((b, idx) => <li key={idx}>{b}</li>)}
               </ul>
             </div>
-            <div className="scheme-field"><span>Icon:</span> {scheme.icon}</div>
             <div className="scheme-field"><span>Number of Slots:</span> {scheme.number_of_slots}</div>
             <div className="scheme-field"><span>Registered Customers:</span>
               {scheme.registered_users && scheme.registered_users.length > 0 ? (

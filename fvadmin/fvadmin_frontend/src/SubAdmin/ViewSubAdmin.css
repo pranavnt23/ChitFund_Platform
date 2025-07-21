@@ -1,0 +1,59 @@
+.view-subgroup-container {
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section input {
+  width: 250px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.subgroup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subgroup-card {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%);
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #81d4fa;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+
+.subgroup-card:hover {
+  transform: translateY(-4px);
+}
+
+.toggle-btn {
+  background-color: #0288d1;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.toggle-btn:hover {
+  background-color: #0277bd;
+}
+
+.group-ids-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.group-ids-list li {
+  list-style-type: disc;
+}

@@ -2,11 +2,9 @@ import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import './DashBoard.css';
 
-import AddScheme from '../AddScheme/AddScheme';
-import DeleteScheme from '../DeleteScheme/DeleteScheme';
+import Schemes from '../Schemes/Schemes';
 import ViewCustomer from '../ViewCustomer/ViewCustomer';
-import ModifyScheme from '../ModifyScheme/ModifyScheme';
-import SubGroup from '../SubGroup/SubGroup';
+import SubAdmin from '../SubAdmin/SubAdmin';
 
 const Dashboard = ({ username, onLogout }) => {
   return (
@@ -29,10 +27,8 @@ const Dashboard = ({ username, onLogout }) => {
         <nav className="sidebar">
           <ul>
             <li><Link to="view-customer"><button>View Customer</button></Link></li>
-            <li><Link to="add-scheme"><button>Add Scheme</button></Link></li>
-            <li><Link to="delete-scheme"><button>Delete Scheme</button></Link></li>
-            <li><Link to="modify-scheme"><button>Modify Scheme</button></Link></li>
-            <li><Link to="subgroup"><button>SubGroup</button></Link></li>
+            <li><Link to="schemes"><button>Schemes</button></Link></li>
+            <li><Link to="subadmin"><button>SubAdmin</button></Link></li>
             <li><Link to="auction"><button>Auction</button></Link></li>
             <li><Link to="auction-history"><button>Auction History</button></Link></li>
           </ul>
@@ -41,10 +37,8 @@ const Dashboard = ({ username, onLogout }) => {
         <main className="main-content">
           <Routes>
             <Route path="view-customer" element={<ViewCustomer />} />
-            <Route path="add-scheme" element={<AddScheme />} />
-            <Route path="delete-scheme" element={<DeleteScheme />} />
-            <Route path="modify-scheme" element={<ModifyScheme />} />
-            <Route path="subgroup/*" element={<SubGroup />} />
+            <Route path="schemes/*" element={<Schemes />} />
+            <Route path="subadmin/*" element={<SubAdmin />} />
             <Route path="auction" element={<Auction />} />
             <Route path="auction-history" element={<AuctionHistory />} />
           </Routes>

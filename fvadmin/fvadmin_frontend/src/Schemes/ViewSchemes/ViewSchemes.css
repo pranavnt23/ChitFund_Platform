@@ -1,0 +1,80 @@
+.view-schemes-container {
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+}
+
+.view-schemes-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+.scheme-search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin: 16px 0 24px 0;
+  box-sizing: border-box;
+}
+
+.scheme-search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.scheme-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.scheme-card:hover {
+  transform: scale(1.03);
+}
+
+.scheme-card h3 {
+  font-size: 1.4rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.scheme-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.scheme-card ul {
+  margin: 8px 0 8px 18px;
+  padding-left: 0;
+}
+
+.scheme-card ul li {
+  list-style-type: disc;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.scheme-card strong {
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .schemes-grid {
+    grid-template-columns: 1fr;
+  }
+}

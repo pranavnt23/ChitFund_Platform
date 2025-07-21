@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const schemeRoutes = require('./routes/schemeRoutes');
 const customerRoutes = require('./routes/customerRoutes');
-const subGroupRoutes = require('./routes/subGroupRoutes'); 
+const subAdminRoutes = require('./routes/subAdminRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,7 +22,7 @@ mongoose.connect(MONGO_URI, {
 
 app.use('/api/schemes', schemeRoutes);
 app.use('/api/customers', customerRoutes);
-app.use('/api/subgroups', subGroupRoutes);  
+app.use('/api/subadmins', subAdminRoutes);   // Added subadmin route
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

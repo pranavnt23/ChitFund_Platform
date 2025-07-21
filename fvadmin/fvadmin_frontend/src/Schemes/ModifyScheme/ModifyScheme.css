@@ -1,10 +1,10 @@
 .modify-schemes-container {
-  max-width: 900px;
+  max-width: 950px;
   margin: 32px auto;
   padding: 24px;
-  background: #f8fbff;
+  background: linear-gradient(145deg, #f0faff, #e6f0ff);
   border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,123,255,0.07);
+  box-shadow: 0 4px 18px rgba(0, 123, 255, 0.08);
 }
 
 .modify-message {
@@ -20,30 +20,28 @@
 }
 
 .modify-scheme-card {
-  background: #fff;
+  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-  padding: 20px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  padding: 20px;
   min-width: 320px;
   flex: 1 1 320px;
-  margin-bottom: 10px;
   position: relative;
 }
 
 .edit-btn, .edit-btn-row button {
   background: #007bff;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  padding: 7px 18px;
+  padding: 8px 20px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin-top: 12px;
   transition: background 0.2s;
 }
 
-.edit-btn:hover, .edit-btn-row button[type="submit"]:hover {
+.edit-btn:hover, .edit-btn-row button:hover {
   background: #0056b3;
 }
 
@@ -54,26 +52,26 @@
 }
 
 .edit-btn-row button[type="button"] {
-  background: #e0e0e0;
-  color: #333;
+  background: #6c757d;
 }
 
 .edit-btn-row button[type="button"]:hover {
-  background: #bdbdbd;
+  background: #495057;
 }
 
 .edit-form label {
-  margin-top: 8px;
+  margin-top: 10px;
   font-weight: 500;
+  display: block;
 }
 
 .edit-form input,
 .edit-form textarea {
   width: 100%;
-  padding: 7px 10px;
-  margin: 4px 0 10px 0;
+  padding: 8px 10px;
+  margin: 6px 0 12px 0;
   border-radius: 5px;
-  border: 1px solid #bfc9d1;
-  font-size: 1rem;
+  border: 1px solid #ced4da;
+  font-size: 0.95rem;
   resize: vertical;
 }

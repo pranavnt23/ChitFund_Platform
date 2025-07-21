@@ -1,0 +1,99 @@
+.add-scheme-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #f0faff, #d2e9ff);
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.add-scheme-container h2 {
+    text-align: center;
+    color: #004080;
+}
+
+.warning-message {
+    background-color: #ffefc1;
+    padding: 10px;
+    border-left: 4px solid #ffbf00;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.add-scheme-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-scheme-form input,
+.add-scheme-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.add-scheme-form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-scheme-form button:hover {
+    background: #0056b3;
+}
+
+.login-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.login-dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-dialog input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login-dialog button {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login-dialog button:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    background-color: #dc3545 !important;
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333 !important;
+}

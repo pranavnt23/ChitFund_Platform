@@ -1,0 +1,47 @@
+.add-subgroup-container {
+  padding: 20px;
+  background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.add-subgroup-container h3 {
+  text-align: center;
+  color: #0077b6;
+  margin-bottom: 20px;
+}
+
+.add-subadmin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-subadmin-form input,
+.add-subadmin-form select {
+  padding: 10px 12px;
+  border: 1px solid #90caf9;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.add-subadmin-form label {
+  font-weight: 500;
+  color: #0277bd;
+}
+
+.add-subadmin-form button {
+  background: #0288d1;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.add-subadmin-form button:hover {
+  background: #01579b;
+  transform: scale(1.05);
+}
