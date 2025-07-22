@@ -8,6 +8,5 @@ router.get('/:id', schemeController.getSchemeById);
 
 // Authenticated user routes
 router.post('/register', schemeController.registerForScheme);
-router.post('/bid', schemeController.placeBid);
 
 module.exports = router;

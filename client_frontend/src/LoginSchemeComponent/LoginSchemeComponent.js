@@ -25,45 +25,62 @@ const LoginSchemeComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchSchemes = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/users/schemes/${username}`);
-        const data = await response.json();
+  const fetchSchemes = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/schemes/${username}`);
+      const data = await response.json();
 
-        // Remove duplicates from registered schemes based on scheme_id
-        const uniqueRegisteredSchemes = Array.from(
-          new Map(data.registeredSchemes.map(scheme => [scheme.scheme_id, scheme])).values()
-        );
+      // 1. Make a Set of registered scheme ids (normalized to string)
+      const registeredIds = new Set(
+        data.registeredSchemes.map(s =>
+          s.scheme_id && typeof s.scheme_id === 'object'
+            ? s.scheme_id._id?.toString?.() || s.scheme_id.toString()
+            : s.scheme_id?.toString()
+        )
+      );
 
-        // Filter out registered schemes from available schemes
-        const filteredAvailableSchemes = data.availableSchemes.filter(
-          availableScheme => !uniqueRegisteredSchemes.some(
-            registeredScheme => registeredScheme.scheme_id === availableScheme._id
-          )
-        );
+      // 2. Remove duplicate registered schemes
+      const uniqueRegisteredSchemes = Array.from(
+        new Map(
+          data.registeredSchemes.map(s => {
+            const id =
+              s.scheme_id && typeof s.scheme_id === 'object'
+                ? s.scheme_id._id?.toString?.() || s.scheme_id.toString()
+                : s.scheme_id?.toString();
+            return [id, s];
+          })
+        ).values()
+      );
 
-        setSchemes({
-          registeredSchemes: uniqueRegisteredSchemes,
-          availableSchemes: filteredAvailableSchemes,
-          fullSchemes: data.fullSchemes
-        });
-      } catch (error) {
-        console.error('Error fetching schemes:', error);
-      }
-    };
+      // 3. Filter available schemes to NOT include any registered one
+      const filteredAvailableSchemes = (data.availableSchemes || []).filter(
+        s => !registeredIds.has(s._id && s._id.toString())
+      );
 
-    fetchSchemes();
-  }, [username]);
+      setSchemes({
+        registeredSchemes: uniqueRegisteredSchemes,
+        availableSchemes: filteredAvailableSchemes,
+        fullSchemes: data.fullSchemes || []
+      });
+    } catch (error) {
+      console.error('Error fetching schemes:', error);
+    }
+  };
 
-const handleMoreClick = (scheme) => {
-  const schemeId = scheme._id;
-  navigate(`/more/${schemeId}`, {
+  fetchSchemes();
+}, [username]);
+
+
+const handleMoreClick = (schemeIdObj) => {
+  const schemeId = schemeIdObj?._id || schemeIdObj; // fallback to primitive
+  navigate(`/loginmore/${schemeId}/${username}`, {
     state: {
-      registeredSchemes: schemes.registeredSchemes,
-      username: username
+      registeredSchemes: schemes.registeredSchemes
     }
   });
-};  
+};
+
+  
   // New function to handle auction history navigation  
   const handleViewHistoryClick = (id) => {
     navigate(`/auction`, { state: { schemeId: id, username } }); // Navigate to auction page
@@ -90,7 +107,6 @@ const handleMoreClick = (scheme) => {
           </div>
         ))}
       </div>
-
       <h2 style={{ color: 'white' }}>Available Schemes</h2>
       <div className="schemes-grid">
         {schemes.availableSchemes.map((scheme, index) => (
@@ -107,21 +123,6 @@ const handleMoreClick = (scheme) => {
         ))}
       </div>
 
-      <h2 style={{ color: 'white' }}>Full Schemes</h2>
-      <div className="schemes-grid">
-        {schemes.fullSchemes.map((scheme, index) => (
-          <div key={index} className="scheme-card" style={{ backgroundColor: '#f5b7b1' }}>
-            <div className="icon-container">
-              {iconMap[scheme.icon] || null}
-            </div>
-            <h3 className="card-title">{scheme.name}</h3>
-            <p className="card-description">{scheme.description}</p>
-            <button className="register-button" onClick={() => handleMoreClick(scheme._id)}>
-              More
-            </button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

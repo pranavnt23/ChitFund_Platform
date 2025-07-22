@@ -12,6 +12,7 @@ import Home from './Home';
 import Footer from './FooterComponent/FooterComponent';
 import SchemesComponent from './SchemesComponet/SchemesComponent';
 import MorePage from './SchemesComponet/MorePage';
+import LoginMorePage from './SchemesComponet/LoginMorePage'
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -118,6 +119,7 @@ function App() {
           <Route path="/api/schemes/:username" element={<LoginSchemeComponent />} />
           <Route path="/register" element={<RegisterComponent />} />
           <Route path="/more/:id" element={<MorePage />} /> 
+          <Route path="/loginmore/:id/:username" element={<LoginMorePage />} />
         </Routes>
 
         <Footer />

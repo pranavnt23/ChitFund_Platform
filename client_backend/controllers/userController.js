@@ -25,6 +25,10 @@ exports.getUserSchemes = async (req, res) => {
   try {
     const user = await User.findOne({ username }).populate('schemes_registered.scheme_id');
 
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     const registeredSchemes = user.schemes_registered.map(s => ({
       scheme_id: s.scheme_id,
       bid_status: s.bid_status,
@@ -36,15 +40,21 @@ exports.getUserSchemes = async (req, res) => {
     const completeRegisteredSchemes = await Promise.all(
       registeredSchemes.map(async (regScheme) => {
         const schemeDetails = await Scheme.findById(regScheme.scheme_id);
+        if (!schemeDetails) {
+          console.warn(`Scheme with ID ${regScheme.scheme_id} not found`);
+          return null; 
+        }
         return { ...regScheme, ...schemeDetails._doc };
       })
     );
+
+    const filteredRegisteredSchemes = completeRegisteredSchemes.filter(s => s !== null);
 
     const availableSchemes = await Scheme.find({ number_of_slots: { $gt: 0 } });
     const fullSchemes = await Scheme.find({ number_of_slots: 0 });
 
     res.json({
-      registeredSchemes: completeRegisteredSchemes,
+      registeredSchemes: filteredRegisteredSchemes,
       availableSchemes,
       fullSchemes
     });
@@ -53,3 +63,4 @@ exports.getUserSchemes = async (req, res) => {
     res.status(500).json({ message: 'Error fetching user schemes' });
   }
 };
+

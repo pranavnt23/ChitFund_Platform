@@ -1,0 +1,222 @@
+.table-container {
+    width: 80%;
+    height: auto;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(to right, #3b3b3b, #222222);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 50px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #fff;
+}
+
+.scheme-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.scheme-table th, .scheme-table td {
+    padding: 8px;
+    border: 1px solid #fff;
+    text-align: left;
+}
+
+.scheme-table th {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
+.scheme-table tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scheme-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.register-button {
+    background-color: white;
+    color: #222222;
+    padding: 10px 20px;
+    border: 2px solid #222222;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #222222;
+    color: white;
+    border-color: white;
+    transition: all 0.3s ease;
+}
+
+.view-history-button {
+    background-color: #fff;
+    color: #3b3b3b;
+    padding: 10px 20px;
+    border: 2px solid #3b3b3b;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.view-history-button:hover {
+    background-color: #3b3b3b;
+    color: #fff;
+    border-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ---- Dialog and Overlay ---- */
+.register-dialog-overlay {
+    background: rgba(34, 45, 66, 0.17);
+    position: fixed;
+    left: 0; 
+    top: 0; 
+    right: 0; 
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    min-height: 100vh;
+    padding-top: 70px; /* Reserve space for navbar */
+    box-sizing: border-box;
+}
+
+.register-dialog {
+    background: #fff;
+    color: #222;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 1.5px 6px rgba(44,62,80,0.05);
+    padding: 36px 32px 24px 32px;
+    width: 380px;
+    max-width: 95vw;
+    margin: 0 auto;
+    transition: box-shadow 0.2s;
+    position: relative;
+    max-height: 80vh;      /* Prevent dialog from growing past window */
+    overflow-y: auto;
+}
+
+.register-dialog h2 {
+    color: #24456b;
+    margin-top: 0;
+    margin-bottom: 26px;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.register-dialog form > div {
+    margin-bottom: 18px;
+}
+
+.register-dialog label {
+    color: #2a2f3b;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.register-dialog input {
+    color: #222;
+    background: #f6f7fb;
+    border: 1.5px solid #b2bac8;
+    padding: 9px 13px;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 3px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.register-dialog input:focus {
+    border-color: #377de5;
+    box-shadow: 0 0 0 2.3px #b5d3ff;
+    background: #f4f9fe;
+}
+
+.register-dialog input::placeholder {
+    color: #a0a5b1;
+    opacity: 1;
+}
+
+.register-dialog button {
+    background: linear-gradient(90deg, #266ad1 60%, #2851a3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 2px;
+    margin-right: 7px;
+    transition: background 0.18s, transform 0.14s;
+    box-shadow: 0 1.5px 6px rgba(44,62,80,0.12);
+}
+
+.register-dialog button[disabled] {
+    background: #dee2ef !important;
+    color: #aaa !important;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.register-dialog button:hover:not([disabled]) {
+    background: linear-gradient(90deg, #2851a3 20%, #266ad1 80%);
+    transform: translateY(-1px) scale(1.04);
+}
+
+@media (max-width: 600px) {
+    .register-dialog {
+        width: 97vw;
+        padding: 10px;
+        max-height: 82vh;
+    }
+    .register-dialog-overlay {
+        padding-top: 62px;
+    }
+}

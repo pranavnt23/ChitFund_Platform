@@ -30,8 +30,9 @@ useEffect(() => {
 }, [id]); 
 
   const handleRegisterClick = () => {
-    setIsDialogOpen(true);
-  };
+  navigate('/login');  
+};
+
 
   const closeDialog = () => {
     setIsDialogOpen(false);

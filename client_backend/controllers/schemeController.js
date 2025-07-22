@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');  // ✅ Import mongoose
+const mongoose = require('mongoose');  
 const User = require('../models/User');
 const Scheme = require('../models/Scheme');
-const Bid = require('../models/Bid');
 
 // ✅ Fetch all schemes
 exports.getAllSchemes = async (req, res) => {
@@ -74,34 +73,3 @@ exports.registerForScheme = async (req, res) => {
   }
 };
 
-// ✅ Place a bid for a scheme
-exports.placeBid = async (req, res) => {
-  const { userId, schemeId, bidAmount } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    const registeredScheme = user.schemes_registered.find(s => s.scheme_id.toString() === schemeId);
-    if (!registeredScheme) {
-      return res.status(404).json({ message: 'User not registered for this scheme' });
-    }
-
-    registeredScheme.bid_status.push({
-      month: registeredScheme.months_completed + 1,
-      bid_made: true,
-      payment_made: 0 // to be updated later
-    });
-
-    registeredScheme.bids_made_count += 1;
-
-    const bid = new Bid({ user_id: userId, scheme_id: schemeId, bid_amount: bidAmount });
-    await bid.save();
-    await user.save();
-
-    res.json({ message: 'Bid placed successfully', bidAmount });
-  } catch (error) {
-    console.error('Error placing bid:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
