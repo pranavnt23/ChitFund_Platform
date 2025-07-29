@@ -5,6 +5,7 @@ import './DashBoard.css';
 import Schemes from '../Schemes/Schemes';
 import ViewCustomer from '../ViewCustomer/ViewCustomer';
 import SubAdmin from '../SubAdmin/SubAdmin';
+import GroupSlot from '../GroupSlot/GroupSlot'; // Import your GroupSlot component
 
 const Dashboard = ({ username, onLogout }) => {
   return (
@@ -29,6 +30,7 @@ const Dashboard = ({ username, onLogout }) => {
             <li><Link to="view-customer"><button>View Customer</button></Link></li>
             <li><Link to="schemes"><button>Schemes</button></Link></li>
             <li><Link to="subadmin"><button>SubAdmin</button></Link></li>
+            <li><Link to="groupslot"><button>Group Slot</button></Link></li> {/* ✅ NEW */}
             <li><Link to="auction"><button>Auction</button></Link></li>
             <li><Link to="auction-history"><button>Auction History</button></Link></li>
           </ul>
@@ -39,6 +41,7 @@ const Dashboard = ({ username, onLogout }) => {
             <Route path="view-customer" element={<ViewCustomer />} />
             <Route path="schemes/*" element={<Schemes />} />
             <Route path="subadmin/*" element={<SubAdmin />} />
+            <Route path="groupslot/*" element={<GroupSlot />} /> {/* ✅ NEW */}
             <Route path="auction" element={<Auction />} />
             <Route path="auction-history" element={<AuctionHistory />} />
           </Routes>
@@ -48,6 +51,7 @@ const Dashboard = ({ username, onLogout }) => {
   );
 };
 
+// Static content for Auction & History
 const Auction = () => (
   <div className="content-container">
     <h2>Auction</h2>

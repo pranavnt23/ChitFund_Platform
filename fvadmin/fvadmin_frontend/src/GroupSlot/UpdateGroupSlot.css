@@ -1,0 +1,78 @@
+.update-groupslot-container {
+  background-color: white;
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.update-header {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.update-form label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+.update-form input[type="text"],
+.update-form input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.subgroup-box {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  border-left: 5px solid #4285f4;
+}
+
+.subgroup-box input {
+  margin-top: 8px;
+}
+
+.submit-btn {
+  margin-top: 25px;
+  background-color: #1a73e8;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #155cc1;
+}
+
+.success-msg {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+}

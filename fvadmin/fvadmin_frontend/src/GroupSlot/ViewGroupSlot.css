@@ -1,0 +1,40 @@
+.groupslot-container {
+  background-color: #ffffff;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.groupslot-header {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333333;
+  font-weight: bold;
+  border-bottom: 2px solid #0077cc;
+  padding-bottom: 10px;
+}
+
+.groupslot-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  border-left: 5px solid #0077cc;
+}
+
+.groupslot-section h4,
+.groupslot-section h5,
+.groupslot-section h6 {
+  margin: 10px 0 5px;
+  color: #222222;
+}
+
+.groupslot-section p {
+  margin: 4px 0 10px;
+  color: #555555;
+  font-size: 15px;
+}
