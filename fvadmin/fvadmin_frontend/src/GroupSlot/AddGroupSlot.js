@@ -18,11 +18,11 @@ const AddGroupSlot = () => {
 
   useEffect(() => {
     axios.get('/api/schemes/')
-      .then(res => {
-        console.log("Loaded schemes from backend:", res.data); // prints the array
-        setSchemeOptions(res.data)
-      })
-      .catch(err => console.error('Error fetching schemes:', err));
+  .then(res => {
+    console.log("Loaded schemes from backend:", res.data);
+    setSchemeOptions(res.data)
+  })
+  .catch(err => console.error('Error fetching schemes:', err));
   }, []);
 
   const handleChange = (e) => {

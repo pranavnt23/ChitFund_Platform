@@ -1,3 +1,5 @@
+require('dotenv').config(); // Loads .env from project root
+
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');

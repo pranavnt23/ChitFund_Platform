@@ -4,13 +4,13 @@ const User = require('../models/User');
 exports.getAllSchemes = async (req, res) => {
   try {
     const schemes = await Scheme.find();
-
     res.json(schemes);
   } catch (err) {
     console.error("Error fetching schemes:", err);
     res.status(500).json({ error: 'Failed to fetch schemes' });
   }
 };
+
 
 
 exports.getSchemeById = async (req, res) => {
