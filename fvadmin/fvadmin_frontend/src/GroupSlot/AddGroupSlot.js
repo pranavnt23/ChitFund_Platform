@@ -1,199 +1,291 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './GroupSlot.css';
+import React, { useState, useEffect } from "react";
+import "./AddGroupSlot.css";
 
 const AddGroupSlot = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    subadminUsername: '',
-    groupName: '',
-    password: '',
-    confirmPassword: '',
-    numberOfSubgroups: 1
-  });
-
+  const [subAdmin, setSubAdmin] = useState("");
+  const [groupName, setGroupName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [numSubgroups, setNumSubgroups] = useState(1);
   const [subgroups, setSubgroups] = useState([]);
-  const [schemeOptions, setSchemeOptions] = useState([]);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [schemes, setSchemes] = useState([]);
+  const [status, setStatus] = useState(null);
 
+  // Fetch schemes on mount
   useEffect(() => {
-    axios.get('/api/schemes/')
-  .then(res => {
-    console.log("Loaded schemes from backend:", res.data);
-    setSchemeOptions(res.data)
-  })
-  .catch(err => console.error('Error fetching schemes:', err));
+    fetch("http://localhost:5000/api/schemes")
+      .then((res) => res.json())
+      .then((data) => setSchemes(data))
+      .catch(() =>
+        setStatus({ type: "error", message: "Error fetching schemes" })
+      );
   }, []);
 
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+  // Initialize subgroups
+  const handleSubgroupCount = (count) => {
+    const newSubgroups = [];
+    for (let i = 0; i < count; i++) {
+      newSubgroups.push({
+        name: "",
+        schemeLimit: 1,
+        selectedSchemes: [] // array of {id, slots}
+      });
+    }
+    setSubgroups(newSubgroups);
   };
 
+  // Update subgroup fields
   const handleSubgroupChange = (index, field, value) => {
     const updated = [...subgroups];
-    updated[index] = { ...updated[index], [field]: value };
+    updated[index][field] = value;
     setSubgroups(updated);
   };
 
-  const handleNext = () => {
-    if (step === 1) {
-      if (formData.password !== formData.confirmPassword) {
-        alert('Passwords do not match');
+  // Handle selecting/unselecting a scheme with prompt dialog for slots
+  const handleSchemeSelect = (subIndex, scheme) => {
+    const updated = [...subgroups];
+    const subgroup = updated[subIndex];
+    const existingIdx = subgroup.selectedSchemes.findIndex(
+      (s) => s.id === scheme._id
+    );
+
+    if (existingIdx >= 0) {
+      // Scheme already selected - remove it
+      subgroup.selectedSchemes.splice(existingIdx, 1);
+      setStatus(null);
+    } else {
+      if (subgroup.selectedSchemes.length < subgroup.schemeLimit) {
+        // Prompt user for number of slots
+        const input = window.prompt(
+          `Enter number of slots for scheme "${scheme.name}":`,
+          "1"
+        );
+        if (input === null) {
+          // User canceled prompt
+          return;
+        }
+
+        const slots = parseInt(input);
+        if (isNaN(slots) || slots < 1) {
+          alert("Please enter a valid positive integer for slots.");
+          return;
+        }
+
+        subgroup.selectedSchemes.push({ id: scheme._id, slots });
+        setStatus(null);
+      } else {
+        setStatus({
+          type: "error",
+          message: `You can only select ${subgroup.schemeLimit} scheme(s) for Subgroup ${
+            subIndex + 1
+          }.`
+        });
+      }
+    }
+    setSubgroups(updated);
+  };
+
+  // Validate Step 1
+  const handleNext = async () => {
+    if (!subAdmin || !groupName || !password || !confirmPassword) {
+      setStatus({ type: "error", message: "All fields are required!" });
+      return;
+    }
+    if (password !== confirmPassword) {
+      setStatus({ type: "error", message: "Passwords do not match!" });
+      return;
+    }
+    try {
+      const res = await fetch(`http://localhost:5000/api/subadmins/${subAdmin}`);
+      if (!res.ok) {
+        setStatus({ type: "error", message: "SubAdmin not found!" });
         return;
       }
-      const emptySubgroups = Array.from({ length: Number(formData.numberOfSubgroups) }, () => ({
-        subgroupName: '',
-        numberOfSchemes: 1,
-        schemes: []
-      }));
-      setSubgroups(emptySubgroups);
+      const data = await res.json();
+      console.log("✅ SubAdmin exists:", data);
+
+      handleSubgroupCount(numSubgroups);
+      setStep(2);
+      setStatus(null);
+    } catch (err) {
+      setStatus({ type: "error", message: "Error verifying SubAdmin!" });
     }
-    setStep(step + 1);
   };
 
-  const handleSchemeSelect = (subIndex, schemeIndex, value) => {
-    // Log the selected value and corresponding scheme object to the console
-    const scheme = schemeOptions.find(opt => opt.name === value);
-    console.log(`Selected scheme for Subgroup ${subIndex + 1}, Scheme ${schemeIndex + 1}:`, scheme);
+  // Final submit handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // update subgroups state
-    const updatedSchemes = [...(subgroups[subIndex].schemes || [])];
-    updatedSchemes[schemeIndex] = value;
-    handleSubgroupChange(subIndex, 'schemes', updatedSchemes);
-  };
+    if (subgroups.some((sg) => !sg.name)) {
+      alert("❌ All subgroups must have a name!");
+      return;
+    }
 
-  const handleSubmit = async () => {
-    try {
-      const payload = {
-        subadminUsername: formData.subadminUsername,
-        groupName: formData.groupName,
-        password: formData.password,
-        subgroups: subgroups.map(sub => ({
-          subgroupName: sub.subgroupName,
-          schemes: sub.schemes
+    const requestBody = {
+      subAdmin,
+      groupName,
+      password,
+      numSubgroups,
+      subgroups: subgroups.map((sg) => ({
+        name: sg.name,
+        no_of_schemes: sg.schemeLimit,
+        schemes: sg.selectedSchemes.map((s) => ({
+          schemeId: s.id,
+          slots: s.slots
         }))
-      };
-      await axios.post('/api/groupslot/register', payload);
-      setSuccessMessage('GroupSlot created successfully!');
-      setStep(4);
-    } catch (error) {
-      console.error('Submission error:', error);
-      alert('Failed to create GroupSlot');
+      }))
+    };
+
+    console.log("📤 Payload to backend:");
+    console.log(JSON.stringify(requestBody, null, 2));
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/groupslot/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(requestBody)
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        alert("✅ GroupSlot submitted successfully!");
+        console.log("✅ Backend Response:", data);
+      } else {
+        alert(`❌ Error: ${data.message || "Something went wrong!"}`);
+        console.error("❌ Backend Error:", data);
+      }
+    } catch (err) {
+      alert("🚨 Network error! Check if backend is running.");
+      console.error("🚨 Network Error:", err);
     }
   };
 
   return (
-    <div className="groupslot-container">
-      <h2 className="groupslot-header">Add Group Slot</h2>
+    <div className="add-group-slot">
+      <h2>Add GroupSlot</h2>
+      <form onSubmit={handleSubmit}>
+        {step === 1 && (
+          <fieldset>
+            <legend>Basic Details</legend>
+            <input
+              type="text"
+              placeholder="SubAdmin Username"
+              value={subAdmin}
+              onChange={(e) => setSubAdmin(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Group Name"
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              placeholder="Number of Subgroups"
+              value={numSubgroups}
+              min="1"
+              onChange={(e) => setNumSubgroups(parseInt(e.target.value))}
+              required
+            />
+            {status && (
+              <div className={`status-box ${status.type}`}>
+                {status.message}
+              </div>
+            )}
+            <button type="button" className="submit-btn" onClick={handleNext}>
+              Next →
+            </button>
+          </fieldset>
+        )}
 
-      {step === 1 && (
-        <div className="groupslot-section">
-          <label>SubAdmin Username</label>
-          <input
-            type="text"
-            name="subadminUsername"
-            value={formData.subadminUsername}
-            onChange={handleChange}
-          />
+        {step === 2 && (
+          <>
+            {subgroups.map((sub, idx) => (
+              <fieldset key={idx}>
+                <legend>Subgroup {idx + 1}</legend>
+                <input
+                  type="text"
+                  placeholder="Subgroup Name"
+                  value={sub.name}
+                  onChange={(e) =>
+                    handleSubgroupChange(idx, "name", e.target.value)
+                  }
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder="Number of Schemes"
+                  value={sub.schemeLimit}
+                  min="1"
+                  onChange={(e) =>
+                    handleSubgroupChange(
+                      idx,
+                      "schemeLimit",
+                      parseInt(e.target.value)
+                    )
+                  }
+                  required
+                />
+                <div className="scheme-list">
+                  {schemes.map((scheme) => {
+                    const selected = sub.selectedSchemes.find(
+                      (s) => s.id === scheme._id
+                    );
+                    return (
+                      <div key={scheme._id} className="scheme-item">
+                        <span>{scheme.name}</span>
+                        <button
+                          type="button"
+                          className={selected ? "selected" : ""}
+                          onClick={() => handleSchemeSelect(idx, scheme)}
+                        >
+                          {selected ? "✓ Selected" : "Select"}
+                        </button>
 
-          <label>Group Name</label>
-          <input
-            type="text"
-            name="groupName"
-            value={formData.groupName}
-            onChange={handleChange}
-          />
-
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-
-          <label>Number of SubGroups</label>
-          <input
-            type="number"
-            name="numberOfSubgroups"
-            value={formData.numberOfSubgroups}
-            onChange={handleChange}
-            min={1}
-          />
-
-          <button onClick={handleNext}>Next</button>
-        </div>
-      )}
-
-      {step === 2 && (
-        <div className="groupslot-section">
-          {subgroups.map((sub, idx) => (
-            <div key={idx}>
-              <label>SubGroup {idx + 1} Name</label>
-              <input
-                type="text"
-                value={sub.subgroupName}
-                onChange={e => handleSubgroupChange(idx, 'subgroupName', e.target.value)}
-              />
-
-              <label>Number of Schemes</label>
-              <input
-                type="number"
-                min={1}
-                value={sub.numberOfSchemes || 1}
-                onChange={e => {
-                  const newCount = parseInt(e.target.value, 10) || 1;
-                  handleSubgroupChange(idx, 'numberOfSchemes', newCount);
-                  handleSubgroupChange(idx, 'schemes', Array(newCount).fill(''));
-                }}
-              />
-            </div>
-          ))}
-          <button onClick={() => setStep(step + 1)}>Next</button>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div className="groupslot-section">
-          {subgroups.map((sub, i) => (
-            <div key={i}>
-              <h4>{sub.subgroupName || `SubGroup ${i + 1}`} Schemes</h4>
-              {Array.from({ length: sub.numberOfSchemes || 1 }).map((_, j) => (
-                <div key={j}>
-                  <label>Scheme {j + 1}</label>
-                  <select
-                    value={sub.schemes[j] || ''}
-                    onChange={e => handleSchemeSelect(i, j, e.target.value)}
-                  >
-                    <option value="">--Select Scheme--</option>
-                    {schemeOptions.map((s, idx) => (
-                      <option key={idx} value={s.name}>{s.name}</option>
-                    ))}
-                  </select>
+                        {/* Show slots read-only */}
+                        {selected && (
+                          <span style={{ marginLeft: 10 }}>
+                            Slots: {selected.slots}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-          ))}
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
-      )}
-
-      {step === 4 && successMessage && (
-        <div className="groupslot-section">
-          <h3>{successMessage}</h3>
-        </div>
-      )}
+              </fieldset>
+            ))}
+            {status && (
+              <div className={`status-box ${status.type}`}>
+                {status.message}
+              </div>
+            )}
+            <button type="submit" className="submit-btn">
+              Submit GroupSlot
+            </button>
+          </>
+        )}
+      </form>
     </div>
   );
 };

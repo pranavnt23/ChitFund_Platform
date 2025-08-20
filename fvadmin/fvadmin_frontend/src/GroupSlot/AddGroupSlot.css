@@ -1,93 +1,134 @@
-.groupslot-container {
-  max-width: 900px;
+/* Container */
+.add-group-slot {
+  max-width: 800px;
   margin: 40px auto;
-  padding: 30px;
-  background: linear-gradient(to bottom right, #f5faff, #e6f0ff);
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.groupslot-header {
+/* Title */
+.add-group-slot h2 {
   text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 30px;
-  color: #003366;
-}
-
-.groupslot-section {
-  margin-bottom: 30px;
-  background-color: #ffffff;
-  padding: 25px 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  position: relative;
-}
-
-.groupslot-section legend {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 10px;
-  display: block;
-  border-bottom: 2px solid #007BFF;
-  padding-bottom: 5px;
-}
-
-.groupslot-section label {
-  display: block;
-  font-weight: 600;
-  margin-top: 18px;
+  margin-bottom: 20px;
+  font-size: 24px;
   color: #333;
 }
 
-.groupslot-section input,
-.groupslot-section select {
-  width: 100%;
-  padding: 10px 14px;
-  margin-top: 8px;
+/* Fieldsets */
+.add-group-slot fieldset {
   border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
 }
 
-.groupslot-section input:focus,
-.groupslot-section select:focus {
-  border-color: #007BFF;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
-}
-
-.groupslot-section h4 {
-  margin-top: 30px;
-  font-size: 1.2rem;
-  color: #003366;
-}
-
-button {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 12px 28px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.success-message {
-  text-align: center;
-  font-size: 1.4rem;
+.add-group-slot legend {
   font-weight: bold;
-  color: #28a745;
-  margin-top: 20px;
+  padding: 0 10px;
+  color: #444;
+}
+
+/* Inputs */
+.add-group-slot input[type="text"],
+.add-group-slot input[type="password"],
+.add-group-slot input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box; /* ✅ prevents overlap */
+}
+
+.add-group-slot input:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+
+/* Scheme list */
+.scheme-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.scheme-item {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 calc(50% - 12px);
+  min-width: 200px;
+}
+
+.scheme-item span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Scheme select button */
+.scheme-item button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 5px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.scheme-item button:hover {
+  background: #e0e0e0;
+}
+
+.scheme-item button.selected {
+  background: #4caf50;
+  color: #fff;
+}
+
+/* Status box */
+.status-box {
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.status-box.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.status-box.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #43a047;
 }
