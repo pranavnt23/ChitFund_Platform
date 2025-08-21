@@ -1,40 +1,141 @@
 .groupslot-container {
   background-color: #ffffff;
-  padding: 30px;
+  padding: 32px 36px;
   max-width: 1000px;
   margin: 40px auto;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
 .groupslot-header {
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #333333;
-  font-weight: bold;
-  border-bottom: 2px solid #0077cc;
-  padding-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 36px;
+  color: #1a1a1a;
+  font-weight: 700;
+  border-bottom: 3px solid #0077cc;
+  padding-bottom: 12px;
+  letter-spacing: 0.03em;
 }
 
 .groupslot-section {
-  background-color: #f9f9f9;
-  padding: 20px;
-  margin-bottom: 25px;
-  border-radius: 8px;
-  border-left: 5px solid #0077cc;
+  background-color: #fefefe;
+  padding: 24px 28px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  border-left: 6px solid #0077cc;
+  box-shadow: inset 1px 1px 8px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.3s ease;
+}
+
+.groupslot-section:hover {
+  background-color: #f5faff;
 }
 
 .groupslot-section h4,
 .groupslot-section h5,
 .groupslot-section h6 {
-  margin: 10px 0 5px;
+  margin: 14px 0 8px;
   color: #222222;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
 }
 
 .groupslot-section p {
-  margin: 4px 0 10px;
+  margin: 6px 0 14px;
   color: #555555;
   font-size: 15px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.groupslot-section p strong {
+  color: #333333;
+}
+
+/* Nested indentation and colored side bars for Subgroups, Schemes, Slots */
+.groupslot-section > div {
+  margin-top: 18px;
+}
+
+.groupslot-section > div > div {
+  padding-left: 24px;
+  margin-top: 18px;
+  border-left: 4px solid #4285f4;
+  background-color: #f9fbff;
+  border-radius: 8px;
+  box-shadow: inset 0 0 10px rgba(66, 133, 244, 0.1);
+}
+
+.groupslot-section > div > div > div {
+  padding-left: 20px;
+  margin-top: 12px;
+  border-left: 3px dotted #83aef4;
+  background-color: #f3f7ff;
+  border-radius: 6px;
+}
+
+.groupslot-section > div > div > div > div {
+  padding-left: 16px;
+  margin-top: 10px;
+  border-left: 2px dashed #b0c9fc;
+  background-color: #edf2ff;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.groupslot-section button {
+  margin-top: 14px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #0077cc;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 119, 204, 0.5);
+}
+
+.groupslot-section button:hover {
+  background-color: #005fa3;
+  box-shadow: 0 4px 14px rgba(0, 95, 163, 0.7);
+}
+
+/* Search input styling */
+input[type="text"] {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #bbb;
+  width: 280px;
+  font-size: 15px;
+  outline-offset: 3px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 10px rgba(0, 119, 204, 0.5);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .groupslot-container {
+    padding: 24px 20px;
+    max-width: 95%;
+  }
+  .groupslot-header {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
+  .groupslot-section {
+    padding: 18px 20px;
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './GroupSlot.css';
+import './ViewGroupSlot.css';
 
 const ViewGroupSlot = () => {
   const [groupSlots, setGroupSlots] = useState([]);

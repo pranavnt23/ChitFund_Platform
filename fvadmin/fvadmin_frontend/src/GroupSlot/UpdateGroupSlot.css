@@ -24,6 +24,17 @@
   font-size: 16px;
 }
 
+.update-message {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #d9534f; /* Red by default, can be green on success */
+}
+
+.update-message.success {
+  color: #28a745; /* Green success */
+}
+
 .update-form label {
   display: block;
   margin: 15px 0 5px;
@@ -39,29 +50,81 @@
   border-radius: 8px;
   font-size: 15px;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
-.subgroup-box {
+/* Subgroup container box */
+.subgroup-section {
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 20px 20px 15px 25px;
   margin: 20px 0;
   border-radius: 10px;
   border-left: 5px solid #4285f4;
+  box-sizing: border-box;
 }
 
-.subgroup-box input {
+/* Schemes container */
+.schemes-list {
+  margin-top: 15px;
+  padding-left: 20px;
+  border-left: 3px solid #87cefa;
+}
+
+.scheme-section {
+  background-color: #ffffff;
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(66, 133, 244, 0.15);
+}
+
+/* Slots displayed inline */
+.slot-list {
   margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot-label {
+  background-color: #e8f0fe;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #1967d2;
+  white-space: nowrap;
+}
+
+/* Buttons */
+.add-scheme-btn,
+.add-slot-btn {
+  margin-top: 10px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.add-scheme-btn:hover,
+.add-slot-btn:hover {
+  background-color: #155cc1;
 }
 
 .submit-btn {
-  margin-top: 25px;
+  margin-top: 30px;
   background-color: #1a73e8;
   color: white;
-  padding: 12px 20px;
+  padding: 14px 24px;
   font-size: 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
+  width: 100%;
   transition: background-color 0.3s ease;
 }
 
@@ -69,10 +132,15 @@
   background-color: #155cc1;
 }
 
-.success-msg {
-  margin-top: 20px;
-  color: green;
-  font-weight: bold;
-  text-align: center;
-  font-size: 16px;
+/* Responsive tweaks */
+@media screen and (max-width: 600px) {
+  .update-groupslot-container {
+    padding: 20px 15px;
+    margin: 20px auto;
+    max-width: 100%;
+  }
+
+  .slot-list {
+    justify-content: flex-start;
+  }
 }

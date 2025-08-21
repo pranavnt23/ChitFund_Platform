@@ -1,49 +1,75 @@
 .delete-groupslot-container {
-  max-width: 500px;
+  max-width: 600px;
   margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  padding: 30px 25px;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .delete-header {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333333;
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  letter-spacing: 0.03em;
 }
 
-label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #555;
+/* Table-like layout */
+.delete-table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 20px 15px; /* horizontal and vertical spacing */
+  margin-bottom: 20px;
 }
 
+/* Each row like table-row */
+.delete-table-row {
+  display: table-row;
+}
+
+/* Each cell like table-cell with vertical center */
+.delete-table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* Dropdown styling inside table cell */
 .dropdown {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 1.8px solid #bbb;
   border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 15px;
   background-color: #fafafa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline-offset: 2px;
 }
 
+.dropdown:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 6px rgba(63, 81, 181, 0.5);
+  background-color: #fff;
+}
+
+/* Delete button fills its cell height */
 .delete-btn {
-  width: 100%;
-  padding: 12px;
+  padding: 12px 24px;
   background-color: #e53935;
   color: white;
+  font-weight: 700;
   font-size: 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
+  width: 160px;
+  height: 45px;
+  box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4);
 }
 
 .delete-btn:hover {
@@ -51,15 +77,30 @@ label {
 }
 
 .delete-message {
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 14px;
+  margin-top: 25px;
+  padding: 12px;
+  font-size: 15px;
   text-align: center;
-  border-radius: 8px;
-  color: #ffffff;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
   background-color: #4caf50;
+  box-shadow: 0 3px 12px rgba(76, 175, 80, 0.65);
 }
 
-.delete-message:empty {
-  display: none;
+/* Responsive for smaller screens */
+@media (max-width: 480px) {
+  .delete-groupslot-container {
+    max-width: 95%;
+    padding: 20px 15px;
+  }
+
+  .delete-table {
+    border-spacing: 10px 12px;
+  }
+
+  .delete-btn {
+    width: 100%;
+    height: 42px;
+  }
 }
