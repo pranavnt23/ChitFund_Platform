@@ -54,7 +54,7 @@ const LoginSchemeComponent = () => {
 
       // 3. Filter available schemes to NOT include any registered one
       const filteredAvailableSchemes = (data.availableSchemes || []).filter(
-        s => !registeredIds.has(s._id && s._id.toString())
+        s => !registeredIds.has(s._id.toString())
       );
 
       setSchemes({

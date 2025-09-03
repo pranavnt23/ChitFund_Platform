@@ -17,7 +17,6 @@ const LoginMorePage = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  // Registration fields
   const [form, setForm] = useState({
     bankAcc: '',
     aadhar: '',
@@ -108,42 +107,47 @@ const LoginMorePage = () => {
     return true;
   };
 
-  // Handle the registration submit
-  const handleSubmit = async (e) => {
+  // Submit handler for custom register
+  const handleCustomRegister = async (e) => {
     e.preventDefault();
     setErrorMsg('');
     setSuccessMsg('');
+
+    if (registrationType !== 'custom') return;
     if (!validateForm()) return;
+
     setRegistering(true);
 
     try {
-      // 1. Validate login credentials
+      // Validate login credentials
       const loginResp = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: form.username, password: form.password }),
       });
+
       if (!loginResp.ok) {
         setErrorMsg('Username or password is incorrect for this account.');
         setRegistering(false);
         return;
       }
 
-      // 2. Submit registration (with all details)
+      // Submit custom registration
       const reqBody = {
         username: form.username,
+        password: form.password,        // Add this line
         schemeId: id,
         bankAcc: form.bankAcc,
         aadhar: form.aadhar,
         ifsc: form.ifsc,
         bankingName: form.bankingName,
-        registrationType
+        registrationType,
+        subgroupId: form.subgroupId,
+        slotId: form.slotId,
       };
-      if (registrationType === 'custom') {
-        reqBody.subgroupId = form.subgroupId;
-        reqBody.slotId = form.slotId;
-      }
-      const regResp = await fetch('http://localhost:5000/api/schemes/register', {
+
+
+      const regResp = await fetch('http://localhost:5000/api/schemes/customregister', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reqBody),
@@ -152,18 +156,77 @@ const LoginMorePage = () => {
       if (regResp.ok) {
         setSuccessMsg('Registration successful!');
         setTimeout(() => {
-          setShowRegForm(false);
-          setShowRegPrompt(false);
-          setRegistrationType(null);
+          closeForm();
           window.location.reload();
         }, 1200);
       } else {
         const data = await regResp.json();
-        setErrorMsg(data?.message || "Registration failed.");
+        setErrorMsg(data?.message || 'Registration failed.');
       }
     } catch (error) {
       setErrorMsg('Error registering for scheme.');
     }
+
+    setRegistering(false);
+  };
+
+  // Submit handler for random register
+  const handleRandomRegister = async (e) => {
+    e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
+    if (registrationType !== 'random') return;
+    if (!validateForm()) return;
+
+    setRegistering(true);
+
+    try {
+      // Validate login credentials
+      const loginResp = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: form.username, password: form.password }),
+      });
+
+      if (!loginResp.ok) {
+        setErrorMsg('Username or password is incorrect for this account.');
+        setRegistering(false);
+        return;
+      }
+
+      // Submit random registration
+      const reqBody = {
+        username: form.username,
+        password: form.password,
+        schemeId: id,
+        bankAcc: form.bankAcc,
+        aadhar: form.aadhar,
+        ifsc: form.ifsc,
+        bankingName: form.bankingName,
+        registrationType,
+      };
+
+      const regResp = await fetch('http://localhost:5000/api/schemes/randomregister', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reqBody),
+      });
+
+      if (regResp.ok) {
+        setSuccessMsg('Registration successful!');
+        setTimeout(() => {
+          closeForm();
+          window.location.reload();
+        }, 1200);
+      } else {
+        const data = await regResp.json();
+        setErrorMsg(data?.message || 'Registration failed.');
+      }
+    } catch (error) {
+      setErrorMsg('Error registering for scheme.');
+    }
+
     setRegistering(false);
   };
 
@@ -174,7 +237,9 @@ const LoginMorePage = () => {
   if (loading) return <div>Loading...</div>;
   if (!schemeData) return <div>No scheme data available</div>;
 
-  const isRegistered = registeredSchemes.some(scheme => scheme.scheme_id === id);
+  const isRegistered = registeredSchemes.some(scheme =>
+    scheme.scheme_id._id ? scheme.scheme_id._id.toString() === id : scheme.scheme_id.toString() === id
+  );
 
   return (
     <div className="table-container">
@@ -208,16 +273,16 @@ const LoginMorePage = () => {
 
       {!isRegistered ? (
         <div className="button-container">
-          {!showRegPrompt && !showRegForm ? (
+          {!showRegPrompt && !showRegForm && (
             <button className="register-button" onClick={handleRegisterClick}>
               Register for Scheme
             </button>
-          ) : null}
+          )}
 
           {/* Registration prompt for type selection */}
           {showRegPrompt && (
             <div className="register-dialog-overlay">
-              <div className="register-dialog" style={{textAlign:"center"}}>
+              <div className="register-dialog" style={{ textAlign: "center" }}>
                 <h2>Choose Registration Type</h2>
                 <button
                   style={{ marginBottom: 12, width: "90%" }}
@@ -234,7 +299,7 @@ const LoginMorePage = () => {
                 <button
                   type="button"
                   onClick={closeForm}
-                  style={{ background: "#b4bbc4", color:"#2a2a2a", marginTop:15, width: "50%"}}
+                  style={{ background: "#b4bbc4", color: "#2a2a2a", marginTop: 15, width: "50%" }}
                 >
                   Cancel
                 </button>
@@ -247,7 +312,10 @@ const LoginMorePage = () => {
             <div className="register-dialog-overlay">
               <div className="register-dialog">
                 <h2>Register for {schemeData.name}</h2>
-                <form onSubmit={handleSubmit} autoComplete="off">
+                <form
+                  onSubmit={registrationType === 'custom' ? handleCustomRegister : handleRandomRegister}
+                  autoComplete="off"
+                >
                   <div>
                     <label>Bank Account No:</label>
                     <input
@@ -256,6 +324,7 @@ const LoginMorePage = () => {
                       value={form.bankAcc}
                       onChange={handleFormInput}
                       placeholder="Enter your bank account number"
+                      required
                     />
                   </div>
                   <div>
@@ -266,6 +335,7 @@ const LoginMorePage = () => {
                       value={form.aadhar}
                       onChange={handleFormInput}
                       placeholder="Enter your Aadhar number"
+                      required
                     />
                   </div>
                   <div>
@@ -276,6 +346,7 @@ const LoginMorePage = () => {
                       value={form.ifsc}
                       onChange={handleFormInput}
                       placeholder="Enter your IFSC code"
+                      required
                     />
                   </div>
                   <div>
@@ -286,6 +357,7 @@ const LoginMorePage = () => {
                       value={form.bankingName}
                       onChange={handleFormInput}
                       placeholder="Enter your banking name"
+                      required
                     />
                   </div>
                   {registrationType === "custom" && (
@@ -298,6 +370,7 @@ const LoginMorePage = () => {
                           value={form.subgroupId}
                           onChange={handleFormInput}
                           placeholder="Enter Subgroup ID"
+                          required
                         />
                       </div>
                       <div>
@@ -308,6 +381,7 @@ const LoginMorePage = () => {
                           value={form.slotId}
                           onChange={handleFormInput}
                           placeholder="Enter Slot ID"
+                          required
                         />
                       </div>
                     </>
@@ -320,6 +394,7 @@ const LoginMorePage = () => {
                       value={form.username}
                       onChange={handleFormInput}
                       placeholder="Enter your username"
+                      required
                     />
                   </div>
                   <div>
@@ -330,13 +405,14 @@ const LoginMorePage = () => {
                       value={form.password}
                       onChange={handleFormInput}
                       placeholder="Enter your password"
+                      required
                     />
                   </div>
-                  <div style={{marginTop: 10, display:"flex", justifyContent:"center"}}>
+                  <div style={{ marginTop: 10, display: "flex", justifyContent: "center" }}>
                     <button type="submit" disabled={registering}>
                       {registering ? 'Registering...' : 'Register'}
                     </button>
-                    <button type="button" onClick={closeForm} disabled={registering} style={{marginLeft: 10}}>
+                    <button type="button" onClick={closeForm} disabled={registering} style={{ marginLeft: 10 }}>
                       Cancel
                     </button>
                   </div>

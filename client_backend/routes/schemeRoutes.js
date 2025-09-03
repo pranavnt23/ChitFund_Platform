@@ -6,7 +6,9 @@ const schemeController = require('../controllers/schemeController');
 router.get('/', schemeController.getAllSchemes);
 router.get('/:id', schemeController.getSchemeById);
 
-// Authenticated user routes
-router.post('/register', schemeController.registerForScheme);
+//router.post('/register', schemeController.registerForScheme);
+// Authenticated user routes with separate registration endpoints
+router.post('/customregister', schemeController.customRegisterForScheme);
+router.post('/randomregister', schemeController.randomRegisterForScheme);
 
 module.exports = router;

@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 5000;
 // Connect to MongoDB
 connectDB();
 
+app.use(express.json());
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
