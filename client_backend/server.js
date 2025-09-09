@@ -29,6 +29,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/schemes', require('./routes/schemeRoutes'));
 app.use('/api/faqs', require('./routes/faqRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/auction', require('./routes/auctionRoutes'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

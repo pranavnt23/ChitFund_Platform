@@ -1,0 +1,23 @@
+.live-auction-container {
+  max-width: 720px;
+  margin: 30px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  text-align: center;
+}
+
+.live-auction-container h2 {
+  margin-bottom: 18px;
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: #007bff;
+}
+
+.live-auction-container p {
+  font-size: 1.1rem;
+  color: #555;
+}

@@ -31,6 +31,9 @@ app.use('/api/schemes', schemeRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/subadmins', subAdminRoutes);
 app.use('/api/groupslot', groupSlotRoutes);
+app.use('/api/auction', require('./routes/auctionRoutes'));
+app.use('/api/dispauction', require('./routes/displayAuctionRoutes'));
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -6,6 +6,6 @@ const chitGroupRandomSchema = new mongoose.Schema({
     slot_id: { type: String, required: true },
     status: { type: String, enum: ['active', 'inactive'], default: 'active' }
   }]
-});
+}, { collection: 'chit_groups_random' });
 
 module.exports = mongoose.model('ChitGroupRandom', chitGroupRandomSchema);

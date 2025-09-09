@@ -7,6 +7,6 @@ const chitSlotSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     date_of_joining: { type: Date, default: Date.now }
   }]
-});
+},{ collection: 'chitslots' });
 
 module.exports = mongoose.model('ChitSlot', chitSlotSchema);
