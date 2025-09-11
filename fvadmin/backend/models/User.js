@@ -10,9 +10,12 @@ const bidStatusSchema = new mongoose.Schema({
 
 const schemeRegisteredSchema = new mongoose.Schema({
   scheme_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Scheme', required: true },
+  slot_id: { type: String, required: true },
+  subgroup_id: { type: String, required: false },  
   bid_status: [bidStatusSchema],
   months_completed: { type: Number, required: true, default: 0 },
-  has_won_bid: { type: Boolean, required: true, default: false }
+  has_won_bid: { type: Boolean, required: true, default: false },
+  current_bid_status: { type: Boolean, required: true, default: false }
 });
 
 // Full user profile schema

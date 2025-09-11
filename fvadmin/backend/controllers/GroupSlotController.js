@@ -1,5 +1,6 @@
 const SubAdmin = require('../models/SubAdmin');
 const Group = require('../models/Group');
+const Scheme = require('../models/Scheme');
 const SubGroup = require('../models/SubGroup');
 const ChitSlot = require('../models/ChitSlot');
 
@@ -81,6 +82,11 @@ exports.registerGroupSlot = async (req, res) => {
       for (let scheme of sg.schemes) {
         const slotObjects = [];
 
+        // Fetch scheme document to get number_of_slots
+        const schemeDoc = await Scheme.findById(scheme.schemeId);
+        // fallback to 10 if not found or invalid
+        const seatsPerSlot = (schemeDoc && Number(schemeDoc.number_of_slots) > 0) ? Number(schemeDoc.number_of_slots) : 10;
+
         for (let j = 0; j < scheme.slots; j++) {
           // create chit slot with unique consecutive slot ID
           const chitSlot = new ChitSlot({
@@ -90,10 +96,10 @@ exports.registerGroupSlot = async (req, res) => {
           });
           await chitSlot.save();
 
-          // push slot reference in subgroup with default 10 seats
+          // push slot reference in subgroup with seats from scheme.number_of_slots
           slotObjects.push({
             slot_id: currentSlotId,
-            no_of_seats_left: 10
+            no_of_seats_left: seatsPerSlot
           });
 
           // increment slot ID for next slot
@@ -119,6 +125,7 @@ exports.registerGroupSlot = async (req, res) => {
       message: "GroupSlot registered successfully",
       groupId: groupId
     });
+
 
   } catch (error) {
     console.error("❌ Error in registerGroupSlot:", error);

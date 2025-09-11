@@ -12,4 +12,7 @@ router.get('/custom/groups', displayAuctionController.getCustomGroups);
 router.get('/custom/subgroups', displayAuctionController.getCustomSubgroups);
 router.get('/custom/slots', displayAuctionController.getCustomSlots);
 
+// Route to get all auction details, sorted by newest first
+router.get('/auctions', displayAuctionController.getAuctions);
+
 module.exports = router;

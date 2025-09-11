@@ -8,6 +8,8 @@ const schemeRoutes = require('./routes/schemeRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 const subAdminRoutes = require('./routes/subAdminRoutes');
 const groupSlotRoutes = require('./routes/GroupSlotRoutes');
+const auctionRoutes = require('./routes/auctionRoutes');
+const dispauctionRoutes=require('./routes/displayAuctionRoutes');
 
 const app = express();
 
@@ -31,8 +33,8 @@ app.use('/api/schemes', schemeRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/subadmins', subAdminRoutes);
 app.use('/api/groupslot', groupSlotRoutes);
-app.use('/api/auction', require('./routes/auctionRoutes'));
-app.use('/api/dispauction', require('./routes/displayAuctionRoutes'));
+app.use('/api/auction', auctionRoutes);
+app.use('/api/dispauction', dispauctionRoutes);
 
 
 app.listen(PORT, () => {

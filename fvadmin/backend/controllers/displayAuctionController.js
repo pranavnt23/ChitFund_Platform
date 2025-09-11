@@ -2,6 +2,7 @@ const ChitGroupRandom = require('../models/chitGroupRandom');
 const Group = require('../models/Group');
 const Subgroup = require('../models/SubGroup');
 const Slot = require('../models/ChitSlot');
+const Auction = require('../models/auction');
 
 // RANDOM - get all schemes in chit_groups_random
 exports.getRandomSchemes = async (req, res) => {
@@ -61,4 +62,30 @@ exports.getCustomSlots = async (req, res) => {
   }
 };
 
+// Controller: Get all auctions with clean formatting
+exports.getAuctions = async (req, res) => {
+  try {
+    // Fetch auctions sorted by newest createdAt
+    const auctions = await Auction.find()
+      .sort({ createdAt: -1 })
+      .lean(); // lean() for returning plain JS objects for easier manipulation
 
+    // Optionally format the auction details for readability
+    const formattedAuctions = auctions.map(a => ({
+      id: a._id.toString(),
+      status: a.auction_status,
+      monthsLeft: a.auction_left_months,
+      slotId: a.slot_id,
+      auctionDetails: a.auction_details.map(detail => ({
+        startTimestamp: detail.auction_start_timestamp,
+      })),
+      createdAt: a.createdAt,
+      updatedAt: a.updatedAt,
+    }));
+
+    res.json(formattedAuctions);
+  } catch (error) {
+    console.error('Error fetching auctions:', error);
+    res.status(500).json({ message: 'Failed to fetch auctions', error: error.message });
+  }
+};
