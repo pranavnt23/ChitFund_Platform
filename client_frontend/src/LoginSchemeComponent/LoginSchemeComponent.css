@@ -1,110 +1,164 @@
+/* Container styles already provided */
 .schemes-container {
-    background-color: #36454F;
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 1200px;
-    margin: 50px auto 50px auto; /* Adjusted margin-bottom to 50px to create space */
+  background-color: #36454F;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 50px auto 50px auto;
 }
 
+/* Grid layouts for schemes */
 .schemes-grid {
-    display: grid; /* Use grid to set 3 columns */
-    grid-template-columns: repeat(3, 1fr); /* 3 schemes per row */
-    gap: 2rem; /* Space between cards */
-}
-
-.scheme-card {
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-/* Category-specific backgrounds */
-.scheme-card.registered {
-    background-color: #d4edda; /* light green */
-    border: 1px solid #28a745;
-}
-
-.scheme-card.available {
-    background-color: #ffffff; /* white */
-    border: 1px solid #ccc;
-}
-
-.scheme-card.full {
-    background-color: #f8d7da; /* light red */
-    border: 1px solid #dc3545;
-}
-
-.scheme-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.icon-container {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background-color: #f8f9fa;
-    border-radius: 50%;
-}
-
-.scheme-icon {
-    width: 40px;
-    height: 40px;
-    color: #4a5568;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    color: #2d3748;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-.card-description {
-    color: #718096;
-    font-size: 0.9rem;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.scheme-label {
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-top: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    background-color: rgba(0,0,0,0.1);
-}
-
-.register-button {
-    background-color: #36454F; /* Button color */
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-top: 1.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.register-button:hover {
-    background-color: black;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
 @media (max-width: 1024px) {
-    .schemes-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 schemes per row for medium screens */
-    }
+  .schemes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .schemes-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-@media (max-width: 768px) {
-    .schemes-grid {
-        grid-template-columns: 1fr; /* 1 scheme per row for small screens */
-    }
+/* Scheme cards base */
+.scheme-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.scheme-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific category colors */
+.scheme-card.registered {
+  background-color: #d4edda;
+  border: 1px solid #28a745;
+}
+.scheme-card.available {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+}
+.scheme-card.full {
+  background-color: #f8d7da;
+  border: 1px solid #dc3545;
+}
+
+/* Icon styles */
+.icon-container {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 50%;
+}
+
+.scheme-icon {
+  width: 40px;
+  height: 40px;
+  color: #4a5568;
+}
+
+/* Card title and description */
+.card-title {
+  font-size: 1.2rem;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+.card-description {
+  color: #718096;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.register-button {
+  background-color: #36454F;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.register-button:hover {
+  background-color: black;
+}
+
+/* Live Auction Notification Styles */
+.live-auction-notification {
+  background-color: #f0f8ff; /* AliceBlue for light pleasant bg */
+  border: 1px solid #a0aec0; /* subtle gray border */
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(160, 174, 192, 0.3);
+}
+
+.live-auction-message {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 48px;
+}
+
+.live-auction-message p {
+  margin: 0;
+  flex: 1;
+  padding-right: 180px;
+  line-height: 48px;
+}
+
+.live-auction-message button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.9rem 2.2rem;
+  font-size: 1.2rem;
+  background-color: #28a745;  /* Green background */
+  color: white;
+  border: 2px solid #28a745; /* Green border */
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.live-auction-message button:hover {
+  background-color: #218838; /* Darker green on hover */
+  border-color: #1e7e34;      /* Darker green border on hover */
+}
+
+/* Error message */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin: 10px 0 15px 0;
+  font-weight: 600;
+  text-align: center;
 }

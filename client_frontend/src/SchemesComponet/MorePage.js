@@ -4,42 +4,42 @@ import './MorePage.css';
 import RegisterDialog from './RegisterScheme';
 
 const MorePageComponent = () => {
-  const { id, username } = useParams(); // Extract id and username from URL params
-  const location = useLocation(); // Use location to get passed state
-  const registeredSchemes = location.state?.registeredSchemes || []; // Default to an empty array if not provided
-  const navigate = useNavigate(); // Initialize useNavigate
+  const { id, username } = useParams(); // id here is schemeId
+  const location = useLocation();
+  const registeredSchemes = location.state?.registeredSchemes || [];
+  const navigate = useNavigate();
 
   const [schemeData, setSchemeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-useEffect(() => {
-  const fetchSchemeDetails = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/schemes/${id}`);
-      const data = await response.json();
-      setSchemeData(data);
-    } catch (error) {
-      console.error('Error fetching scheme details:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchSchemeDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/schemes/${id}`);
+        const data = await response.json();
+        setSchemeData(data);
+      } catch (error) {
+        console.error('Error fetching scheme details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchSchemeDetails();
-}, [id]); 
+    fetchSchemeDetails();
+  }, [id]);
 
   const handleRegisterClick = () => {
-  navigate('/login');  
-};
-
+    navigate('/login');
+  };
 
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
 
+  // Corrected: Navigate using URL params, passing schemeId and username
   const handleViewHistoryClick = () => {
-    navigate('/auction', { state: { schemeId: id, username } }); // Navigate to Auction with state
+    navigate(`/user-auction-history/${username}/${id}`);
   };
 
   if (loading) {
@@ -50,8 +50,14 @@ useEffect(() => {
     return <div>No scheme data available</div>;
   }
 
-  // Check if the scheme is already registered by the user
-  const isRegistered = registeredSchemes.some(scheme => scheme.scheme_id === id);
+  // Check registration by comparing schemeId strings reliably
+  const isRegistered = registeredSchemes.some(scheme => {
+    // Handle scheme_id being object or string
+    const schemeIdStr = scheme.scheme_id && typeof scheme.scheme_id === 'object' 
+      ? scheme.scheme_id._id?.toString() || scheme.scheme_id.toString()
+      : scheme.scheme_id?.toString();
+    return schemeIdStr === id;
+  });
 
   return (
     <div className="table-container">
@@ -68,16 +74,16 @@ useEffect(() => {
           <tr><td>Description</td><td>{schemeData.description}</td></tr>
           <tr><td>Target Audience</td><td>{schemeData.target_audience}</td></tr>
           <tr>
-          <td>Monthly Contribution</td>
-          <td>₹{schemeData.investment_plan?.monthly_contribution}</td>
+            <td>Monthly Contribution</td>
+            <td>₹{schemeData.investment_plan?.monthly_contribution}</td>
           </tr>
           <tr>
-          <td>Chit Period</td>
-          <td>{schemeData.investment_plan?.chit_period} months</td>
+            <td>Chit Period</td>
+            <td>{schemeData.investment_plan?.chit_period} months</td>
           </tr>
           <tr>
-          <td>Total Fund Value</td>
-          <td>₹{schemeData.investment_plan?.total_fund_value?.[0]?.value}</td>
+            <td>Total Fund Value</td>
+            <td>₹{schemeData.investment_plan?.total_fund_value?.[0]?.value}</td>
           </tr>
           <tr>
             <td>Benefits</td>
@@ -92,13 +98,11 @@ useEffect(() => {
         </tbody>
       </table>
 
-      {/* Show Register button only if not already registered */}
       {!isRegistered ? (
         <div className="button-container">
           <button className="register-button" onClick={handleRegisterClick}>Register for Scheme</button>
         </div>
       ) : (
-        // Show View Auction History button if the scheme is registered
         <div className="button-container">
           <button className="view-history-button" onClick={handleViewHistoryClick}>View Auction History</button>
         </div>

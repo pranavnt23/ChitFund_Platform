@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, Link, useLocation } from 'react-router-dom';
 import './App.css';
-import logo from './images/FundLogo-removebg-preview.png'; // Import your logo
+import logo from './images/FundLogo-removebg-preview.png'; 
 import LoginComponent from './LoginComponent/LoginComponent';
 import LoginSchemeComponent from './LoginSchemeComponent/LoginSchemeComponent';
 import RegisterComponent from './RegisterComponent/RegisterComponent';
 import AboutComponent from './AboutComponent/AboutComponent';
 import ContactComponent from './ContactComponent/ContactComponent';
+import ParticipateAuction from './LoginSchemeComponent/ParticipateAuction';
+import AuctionHistory from './LoginSchemeComponent/AuctionHistory'
 import FaqComponent from './FaqComponent/FaqComponent';
 import Home from './Home';
 import Footer from './FooterComponent/FooterComponent';
@@ -120,6 +122,8 @@ function App() {
           <Route path="/register" element={<RegisterComponent />} />
           <Route path="/more/:id" element={<MorePage />} /> 
           <Route path="/loginmore/:id/:username" element={<LoginMorePage />} />
+          <Route path="participate-auction/:schemeId/:username" element={<ParticipateAuction />} />
+          <Route path="/user-auction-history/:username/:schemeId" element={<AuctionHistory />} />
         </Routes>
 
         <Footer />
